@@ -1,0 +1,59 @@
+GET http://localhost:6622/user/
+
+###
+
+GET http://localhost:6622/user/632e13bc7b2fdfd8f28a1bdd
+
+
+###
+
+POST http://localhost:6622/user
+Content-Type: application/json
+
+{
+    "fullname":"Deepayan Nandy",
+    "mobile":"7384213622",
+    "email":"deepayan.622@gmail.com",
+    "ssn":"123456789",
+    "desig":"emp",
+    "uid":"nsadajks1j23j1d",
+    "empBranch":"1",
+    "projid":""
+}
+
+
+###
+
+
+PATCH  http://localhost:6622/user/632e13bc7b2fdfd8f28a1bdd
+Content-Type: application/json
+
+{
+    "projid":"test"
+}
+
+###
+
+GET http://localhost:6622/branchoffice
+
+
+
+###
+
+POST http://localhost:6622/branchoffice
+Content-Type: application/json
+
+{
+    "branchname":"Port Lavaca",
+    "address":"126 N. Nueces St. Port Lavaca, TX 77979"
+}
+
+###
+
+GET http://localhost:6622/branchoffice/632e0e01fde62f5bbe7ac7fe
+
+###
+
+GET http://localhost:6622/branchoffice/branchlist
+
+
