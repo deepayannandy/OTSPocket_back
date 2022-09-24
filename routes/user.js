@@ -19,7 +19,7 @@ router.post('/',async (req,res)=>{
     })
     try{
         const newUser=await user.save()
-        res.status(201).json(newUser)
+        res.status(201).json({"_id":newUser.id})
     }
     catch(error){
         res.status(400).json({message:error.message})
@@ -49,7 +49,7 @@ router.patch('/:id',getUser,async(req,res)=>{
     }
     try{
         const newUser=await res.user.save()
-        res.status(201).json(newUser)
+        res.status(201).json({"_id":newUser.id})
     }catch(error){
         res.status(500).json({message: error.message})
     }

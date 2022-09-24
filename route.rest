@@ -1,8 +1,22 @@
 GET http://localhost:6622/user/
 
+
+
+
+
+
+
+
 ###
 
 GET http://localhost:6622/user/632e13bc7b2fdfd8f28a1bdd
+
+
+
+
+
+
+
 
 
 ###
@@ -11,13 +25,13 @@ POST http://localhost:6622/user
 Content-Type: application/json
 
 {
-    "fullname":"Deepayan Nandy",
-    "mobile":"7384213622",
-    "email":"deepayan.622@gmail.com",
-    "ssn":"123456789",
-    "desig":"emp",
-    "uid":"nsadajks1j23j1d",
-    "empBranch":"1",
+    "fullname":"Baisakhi Nandy",
+    "mobile":"23131234",
+    "email":"baisakhi.622@gmail.com",
+    "ssn":"12312271",
+    "desig":"manager",
+    "uid":"hsdgaugq23843249",
+    "empBranch":"3",
     "projid":""
 }
 
@@ -29,8 +43,16 @@ PATCH  http://localhost:6622/user/632e13bc7b2fdfd8f28a1bdd
 Content-Type: application/json
 
 {
-    "projid":"test"
+    "projid":""
 }
+
+
+
+
+
+
+
+
 
 ###
 
@@ -53,7 +75,51 @@ Content-Type: application/json
 GET http://localhost:6622/branchoffice/632e0e01fde62f5bbe7ac7fe
 
 ###
-
+#todo
 GET http://localhost:6622/branchoffice/branchlist
+
+
+###
+
+POST http://localhost:6622/consumeables
+Content-Type: application/json
+
+{
+    "name":"RT Source",
+    "stockQnt":"10",
+    "dispatchQnt":"0",
+    "desc":""
+}
+
+
+###
+
+GET http://localhost:6622/consumeables
+
+
+
+
+###
+
+GET http://localhost:6622/consumeables/632eaaad8338b0c811324d5c
+
+
+
+###
+
+POST http://localhost:6622/equipements
+Content-Type: application/json
+
+{
+    "name":"Film",
+    "availableQnt":"100",
+    "dispatchQnt":"20",
+    "branchID":"aakjsdbakjsd0"
+}
+
+###
+
+GET http://localhost:6622/equipements
+
 
 
