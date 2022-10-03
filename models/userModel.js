@@ -25,13 +25,29 @@ const userSchema= new mongoos.Schema({
         type:String,
         required:false
     },
-    uid:{
-        type:String,
-        required:true
+    payrate_ST:{
+        type:Number,
+        required:false
+    },
+    salary:{
+        type:Number,
+        required:false
     },
     empBranch:{
         type:String,
         required:true
+    },
+    active:{
+        type:Boolean,
+        required:true
+    },
+    password:{
+        type:String,
+        required:true
+    },
+    nPlusOne:{
+        type:String,
+        required:false
     }
 })
 

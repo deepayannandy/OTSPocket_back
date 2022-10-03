@@ -2,8 +2,10 @@ const e = require("express")
 const express = require("express")
 const router= express.Router()
 const consumeables=require("../models/consumeablesModel")
+
+const verifie_token= require("../validators/verifyToken")
 //add consumeables
-router.post('/',async (req,res)=>{
+router.post('/',verifie_token,async (req,res)=>{
     const con= new consumeables({
         name:req.body.name,
         stockQnt:req.body.stockQnt,
@@ -21,12 +23,12 @@ router.post('/',async (req,res)=>{
 })
 
 //get a consumeable
-router.get('/:id', getConsu,(req,res)=>{
+router.get('/:id',verifie_token,getConsu,(req,res)=>{
     res.send(res.consume)
 })
 
 //get all branch
-router.get('/',async (req,res)=>{
+router.get('/',verifie_token,async (req,res)=>{
     try{
         const consumeablesList=await consumeables.find()
         res.json(consumeablesList)

@@ -1,7 +1,7 @@
 const mongoos=require("mongoose")
 
-const branchSchema= new mongoos.Schema({
-    branchname:{
+const CustomerSchema= new mongoos.Schema({
+    name:{
         type:String,
         required:true
     },
@@ -9,14 +9,14 @@ const branchSchema= new mongoos.Schema({
         type:String,
         required:true
     },
-    active:{
-        type:Boolean,
-        required:true
-    },
     contact:{
         type:String,
         required:true
-    }
+    },
+    email:{
+        type:String,
+        required:true
+    },
 })
 
-module.exports=mongoos.model('branchOffice',branchSchema)
+module.exports=mongoos.model('customer',CustomerSchema)

@@ -1,12 +1,14 @@
-const e = require("express")
 const express = require("express")
 const router= express.Router()
 const branchoffice=require("../models/branchOfficeModel")
 //create branch
-router.post('/',async (req,res)=>{
+const verifie_token= require("../validators/verifyToken")
+
+router.post('/',verifie_token,async (req,res)=>{
     const brachOffice= new branchoffice({
         branchname:req.body.branchname,
         address:req.body.address,
+        active:true,
     })
     try{
         const newBranch=await brachOffice.save()

@@ -3,8 +3,10 @@ const express = require("express")
 const router= express.Router()
 const equipments=require("../models/equipmentsModel")
 
+const verifie_token= require("../validators/verifyToken")
+
 //add equipments
-router.post('/',async (req,res)=>{
+router.post('/',verifie_token,async (req,res)=>{
     const eqp= new equipments({
         name:req.body.name,
         availableQnt:req.body.availableQnt,
@@ -12,8 +14,8 @@ router.post('/',async (req,res)=>{
         branchID:req.body.branchID
     })
     try{
-        const newConsumeables=await eqp.save()
-        res.status(201).json(newConsumeables.id)
+        const newEqui=await eqp.save()
+        res.status(201).json(newEqui.id)
     }
     catch(error){
         res.status(400).json({message:error.message})
@@ -21,12 +23,12 @@ router.post('/',async (req,res)=>{
 })
 
 //get a equipments
-router.get('/:id', getEquip,(req,res)=>{
-    res.send(res.consume)
+router.get('/:id',verifie_token, getEquip,(req,res)=>{
+    res.send(res.equip)
 })
 
 //get all branch
-router.get('/',async (req,res)=>{
+router.get('/',verifie_token,async (req,res)=>{
     try{
         const equipmentsList=await equipments.find()
         res.json(equipmentsList)
@@ -41,7 +43,7 @@ router.get('/',async (req,res)=>{
 async function getEquip(req,res,next){
     let equip
     try{
-        equip=await consumeables.findById(req.params.id)
+        equip=await equipments.findById(req.params.id)
         if(equip==null){
             return res.status(404).json({message:"Equipement unavailable!"})
         }

@@ -9,7 +9,7 @@ GET http://localhost:6622/user/
 
 ###
 
-GET http://localhost:6622/user/632e13bc7b2fdfd8f28a1bdd
+GET http://localhost:6622/user/633005622017e741a5bfcee7
 
 
 
@@ -21,29 +21,41 @@ GET http://localhost:6622/user/632e13bc7b2fdfd8f28a1bdd
 
 ###
 
-POST http://localhost:6622/user
+POST http://localhost:6622/user/register
 Content-Type: application/json
 
 {
     "fullname":"Baisakhi Nandy",
-    "mobile":"23131234",
+    "mobile":"9734567890",
     "email":"baisakhi.622@gmail.com",
-    "ssn":"12312271",
+    "ssn":"123456789",
     "desig":"manager",
-    "uid":"hsdgaugq23843249",
-    "empBranch":"3",
-    "projid":""
+    "empBranch":"Budbud",
+    "projid":"",
+    "password":"Deepayan"
+}
+
+
+
+###
+
+POST http://localhost:6622/user/login
+Content-Type: application/json
+
+{
+    "email":"baisakhi.622@gmail.com",
+    "password":"Deepayan"
 }
 
 
 ###
 
 
-PATCH  http://localhost:6622/user/632e13bc7b2fdfd8f28a1bdd
+PATCH  http://localhost:6622/user/633005622017e741a5bfcee7
 Content-Type: application/json
 
 {
-    "projid":""
+    "projid":"Test Project"
 }
 
 
@@ -66,8 +78,8 @@ POST http://localhost:6622/branchoffice
 Content-Type: application/json
 
 {
-    "branchname":"Port Lavaca",
-    "address":"126 N. Nueces St. Port Lavaca, TX 77979"
+    "branchname":"Pasadena, TX 77506",
+    "address":"Houston 312 Richey St. Pasadena, TX 77506"
 }
 
 ###
@@ -88,7 +100,8 @@ Content-Type: application/json
     "name":"RT Source",
     "stockQnt":"10",
     "dispatchQnt":"0",
-    "desc":""
+    "desc":"",
+    "branchID":"1",
 }
 
 
@@ -123,3 +136,13 @@ GET http://localhost:6622/equipements
 
 
 
+{
+    "submitdate":"2022-10-03",
+    "status":0,
+    "branchID":"ydgauhs",
+    "Po":"PoTest",
+    "Wo":"WoTest",
+    "st":8,
+    "ot":4,
+    "tt":1
+}
