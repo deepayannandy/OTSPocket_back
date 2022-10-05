@@ -47,7 +47,7 @@ router.post('/register',async (req,res)=>{
         mobile:req.body.mobile,
         email:req.body.email,
         ssn:req.body.ssn,
-        desig:req.body.desig,
+        desig:"Employee",
         empBranch:req.body.empBranch,
         projid:req.body.projid,
         payrate_ST:"0",

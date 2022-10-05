@@ -9,6 +9,7 @@ router.post('/',verifie_token,async (req,res)=>{
         branchname:req.body.branchname,
         address:req.body.address,
         active:true,
+        contact:req.body.contact,
     })
     try{
         const newBranch=await brachOffice.save()
