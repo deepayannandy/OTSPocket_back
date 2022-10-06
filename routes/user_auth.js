@@ -49,7 +49,7 @@ router.post('/register',async (req,res)=>{
         ssn:req.body.ssn,
         desig:"Employee",
         empBranch:req.body.empBranch,
-        projid:req.body.projid,
+        projid:"",
         payrate_ST:"0",
         salary:"0",
         active:false,
