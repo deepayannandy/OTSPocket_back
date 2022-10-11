@@ -72,15 +72,18 @@ router.get('/:id',verifie_token, getUser, (req,res,)=>{
 router.get("/mydata/me",verifie_token,async (req,res)=>{
     console.log(req.tokendata._id)
     const user=await usermodel.findOne({_id:req.tokendata._id});
-    if(!user) return res.status(400).send({"message":"Failed"});
+    if(!user) return res.status(400).send({"message":"User dose not exist!"});
     res.send(user)
 })
 
 //get all user
 router.get('/',verifie_token,async (req,res)=>{
-    console.log(req.tokendata._id)
+    const user=await usermodel.findOne({_id:req.tokendata._id});
+    if(!user) return res.status(400).send({"message":"User dose not exist!"});
+    if(!user.empBranch) return res.status(400).send({"message":"No Employee branch found"});
+    console.log(user.empBranch)
     try{
-        const users=await usermodel.find()
+        const users=await usermodel.find({empBranch:user.empBranch});
         res.json(users)
     }catch(error){
         res.status(500).json({message: error.message})
