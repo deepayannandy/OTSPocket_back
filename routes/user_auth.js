@@ -68,9 +68,17 @@ router.post('/register',async (req,res)=>{
 router.get('/:id',verifie_token, getUser, (req,res,)=>{
     res.send(res.user)
 })
+// get my data
+router.get("/mydata/me",verifie_token,async (req,res)=>{
+    console.log(req.tokendata._id)
+    const user=await usermodel.findOne({_id:req.tokendata._id});
+    if(!user) return res.status(400).send({"message":"Failed"});
+    res.send(user)
+})
 
 //get all user
 router.get('/',verifie_token,async (req,res)=>{
+    console.log(req.tokendata._id)
     try{
         const users=await usermodel.find()
         res.json(users)
@@ -105,6 +113,7 @@ router.patch('/:id',verifie_token,getUser,async(req,res)=>{
         res.status(500).json({message: error.message})
     }
 })
+
 
 
 

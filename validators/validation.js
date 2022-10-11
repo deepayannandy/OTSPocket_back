@@ -8,9 +8,7 @@ const schema=joi.object().keys({
     mobile: joi.string().length(10).pattern(/[6-9]{1}[0-9]{9}/).required(),
     password:joi.string().min(6).required(), 
     fullname:joi.string().min(6).required(),
-    desig:joi.string().required(),
     empBranch:joi.string().min(6).required(),
-    projid:joi.required(),
 });
 return schema.validate(data);
 }
