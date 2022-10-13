@@ -9,6 +9,8 @@ const schema=joi.object().keys({
     password:joi.string().min(6).required(), 
     fullname:joi.string().min(6).required(),
     empBranch:joi.string().min(6).required(),
+    desig:joi.string().required(),
+    projid:joi.required(),
 });
 return schema.validate(data);
 }
