@@ -26,11 +26,11 @@ const userSchema= new mongoos.Schema({
         required:false
     },
     payrate_ST:{
-        type:Number,
+        type:mongoos.Types.Decimal128,
         required:false
     },
     salary:{
-        type:Number,
+        type:mongoos.Types.Decimal128,
         required:false
     },
     empBranch:{
