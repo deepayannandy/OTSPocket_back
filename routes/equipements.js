@@ -2,6 +2,7 @@ const e = require("express")
 const express = require("express")
 const router= express.Router()
 const equipments=require("../models/equipmentsModel")
+const usermodel=require("../models/userModel")
 
 const verifie_token= require("../validators/verifyToken")
 
@@ -27,10 +28,13 @@ router.get('/:id',verifie_token, getEquip,(req,res)=>{
     res.send(res.equip)
 })
 
-//get all branch
+//get all equipments
 router.get('/',verifie_token,async (req,res)=>{
+    const user=await usermodel.findOne({_id:req.tokendata._id});
+    if(!user) return res.status(400).send({"message":"User dose not exist!"});
+    if(!user.empBranch) return res.status(400).send({"message":"No Employee branch found"});
     try{
-        const equipmentsList=await equipments.find()
+        const equipmentsList=await equipments.find({branchID:user.empBranch})
         res.json(equipmentsList)
     }catch(error){
         res.status(500).json({message: error.message})
@@ -38,6 +42,22 @@ router.get('/',verifie_token,async (req,res)=>{
 })
 
 //update equipments
+router.patch('/:id',verifie_token,getEquip,async(req,res)=>{
+    if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})
+    if(req.body.availableQnt!=null){
+        res.equip.availableQnt=req.body.availableQnt;
+    }
+    if(req.body.dispatchQnt!=null){
+        res.equip.dispatchQnt=req.body.dispatchQnt;
+    }
+    try{
+        const newequip=await res.equip.save()
+        res.status(201).json({"_id":newequip.id})
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
 
 //middleware
 async function getEquip(req,res,next){

@@ -2,6 +2,7 @@ const e = require("express")
 const express = require("express")
 const router= express.Router()
 const consumeables=require("../models/consumeablesModel")
+const usermodel=require("../models/userModel")
 
 const verifie_token= require("../validators/verifyToken")
 //add consumeables
@@ -27,10 +28,13 @@ router.get('/:id',verifie_token,getConsu,(req,res)=>{
     res.send(res.consume)
 })
 
-//get all branch
+//get all consumeable
 router.get('/',verifie_token,async (req,res)=>{
+    const user=await usermodel.findOne({_id:req.tokendata._id});
+    if(!user) return res.status(400).send({"message":"User dose not exist!"});
+    if(!user.empBranch) return res.status(400).send({"message":"No Employee branch found"});
     try{
-        const consumeablesList=await consumeables.find()
+        const consumeablesList=await consumeables.find({branchID:user.empBranch})
         res.json(consumeablesList)
     }catch(error){
         res.status(500).json({message: error.message})
@@ -38,6 +42,21 @@ router.get('/',verifie_token,async (req,res)=>{
 })
 
 //update consumeable
+router.patch('/:id',verifie_token,getConsu,async(req,res)=>{
+    if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})
+    if(req.body.stockQnt!=null){
+        res.consume.stockQnt=req.body.stockQnt;
+    }
+    if(req.body.dispatchQnt!=null){
+        res.consume.dispatchQnt=req.body.dispatchQnt;
+    }
+    try{
+        const newconsume=await res.consume.save()
+        res.status(201).json({"_id":newconsume.id})
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
 
 //middleware
 async function getConsu(req,res,next){

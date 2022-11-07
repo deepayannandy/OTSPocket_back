@@ -1,10 +1,11 @@
 var nodemailer = require('nodemailer');
+require("dotenv").config()
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'appsdny@gmail.com',
-    pass: 'lqluebudwozpolck'
+    pass: process.env.MAILER_PASS
   },
   port:465,
   host:"smtp.gmail.com"
@@ -13,38 +14,50 @@ var transporter = nodemailer.createTransport({
 var regestereduserMail = {
   from: 'appsdny@gmail.com',
   to: 'deepayan.622@gmail.com',
-  subject: 'Successfully Registered at OTS-Pocket applicatin',
-  text: `Hi User,
-Congratulation you are successfully regestered in OTS-Pocket application. Your Profile is shared with the management team for approval.
+  subject: 'Tire1Integrity || Onboarding process has been started ||',
+  text: `Hi <User>,
+Congratulation on your successful registration at Tire1Integrity. Your Profile is shared with the management team for an approval.
 
-Your login id: deepayan.622@gmail.com
-password: Test@1234
+Your login id: <Email>
+Password: <Password>
 
-* Do Not Share this mail with anyone else *
+* Do Not Share this mail *
         
-We will let you know as soon as your profile got validated.
+We will let you know as soon as your profile got approved.
 
 Thank you 
-Team OTS-Pocket`      
+Team Tire1Integrity`      
 };
+var approveduserMail = {
+  from: 'appsdny@gmail.com',
+  to: 'deepayan.622@gmail.com',
+  subject: 'Tire1Integrity || Onboarding process approved||',
+  text: `Hi <User>,
+Congratulation your profile has been approved at Tire1Integrity.
+
+Thank you 
+Team Tire1Integrity`      
+};
+
 var regestrationAdimnMail = {
     from: 'appsdny@gmail.com',
     to: 'dnyindia@gmail.com',
-    subject: 'New user registration at OTS-Pocket application',
-    text: `Hello Admin,
-A new user is waiting for validation.
+    subject: '<User Name> || Approvl needed',
+    text: `Dear Management,
+New onboarding employee waiting for your approval.
 
 User Details
     Full name: Deepayan Nandy
-    email: deepayan.622@gmail.com
-    branch: Pasadena, TX 77506
-    contact: 7384213622
+    Email: deepayan.622@gmail.com
+    Cost Centre: Pasadena, TX 77506
+    Contact: 7384213622
   
 * Do Not Share this mail with anyone else *
   
 Thank you 
-Team OTS-Pocket`      
+Team Tire1Integrity`      
   };
+  
 
 
 function sendMail(email){
