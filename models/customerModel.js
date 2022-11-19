@@ -1,7 +1,7 @@
 const mongoos=require("mongoose")
 
 const CustomerSchema= new mongoos.Schema({
-    name:{
+    customer:{
         type:String,
         required:true
     },
