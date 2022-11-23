@@ -52,7 +52,7 @@ router.post('/register',async (req,res)=>{
         projid:"",
         payrate_ST:"0",
         salary:"0",
-        active:false,
+        active:false, 
         password:hashedpassword,
     })
     try{
@@ -118,7 +118,22 @@ router.patch('/:id',verifie_token,getUser,async(req,res)=>{
 })
 
 
-
+router.get('/dashboardUserState/get',async (req,res)=>{
+    console.log("hi");
+    try{
+        const allusers=await usermodel.find();
+        const branch1=await usermodel.find({empBranch:"Pasadena, TX 77506"});
+        const branch2=await usermodel.find({empBranch:"Nederland, TX 77627"});
+        const branch3=await usermodel.find({empBranch:"Snyder, TX 79549"});
+        const branch4=await usermodel.find({empBranch:"Angleton, TX 77515"});
+        const branch5=await usermodel.find({empBranch:"Port Lavaca, TX 77979"});
+        const active=await usermodel.find({active:true});
+        const notactive=await usermodel.find({active:false});
+        res.json({totaluser:allusers.length,branch1:branch1.length,branch2:branch2.length,branch3:branch3.length,branch4:branch4.length,branch5:branch5.length, active:active.length,notactive:notactive.length})
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
 
 //middleware
 async function getUser(req,res,next){
