@@ -74,6 +74,7 @@ router.get("/mydata/me",verifie_token,async (req,res)=>{
     const user=await usermodel.findOne({_id:req.tokendata._id});
     if(!user) return res.status(400).send({"message":"User dose not exist!"});
     res.send(user)
+
 })
 
 //get all user
@@ -130,6 +131,15 @@ router.get('/dashboardUserState/get',async (req,res)=>{
         const active=await usermodel.find({active:true});
         const notactive=await usermodel.find({active:false});
         res.json({totaluser:allusers.length,branch1:branch1.length,branch2:branch2.length,branch3:branch3.length,branch4:branch4.length,branch5:branch5.length, active:active.length,notactive:notactive.length})
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+//get all user
+router.get('/dashboardUserState/getall',async (req,res)=>{
+    try{
+        const users=await usermodel.find();
+        res.json(users)
     }catch(error){
         res.status(500).json({message: error.message})
     }
