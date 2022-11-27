@@ -143,31 +143,31 @@ router.get('/dashboardUserState/get',async (req,res)=>{
         let branch5_active=0;
         const branch1=await usermodel.find({empBranch:"Pasadena, TX 77506"});
         branch1.forEach(reasult=>{
-            if(reasult.active){
+            if(!reasult.active){
                 branch1_active=branch1_active+1;
             };
         });
         const branch2=await usermodel.find({empBranch:"Nederland, TX 77627"});
         branch2.forEach(reasult=>{
-            if(reasult.active){
+            if(!reasult.active){
                 branch2_active=branch2_active+1;
             };
         });
         const branch3=await usermodel.find({empBranch:"Snyder, TX 79549"});
         branch3.forEach(reasult=>{
-            if(reasult.active){
+            if(!reasult.active){
                 branch3_active=branch3_active+1;
             };
         });
         const branch4=await usermodel.find({empBranch:"Angleton, TX 77515"});
         branch4.forEach(reasult=>{
-            if(reasult.active){
+            if(!reasult.active){
                 branch4_active=branch4_active+1;
             };
         });
         const branch5=await usermodel.find({empBranch:"Port Lavaca, TX 77979"});
         branch5.forEach(reasult=>{
-            if(reasult.active){
+            if(!reasult.active){
                 branch5_active=branch5_active+1;
             };
         });
