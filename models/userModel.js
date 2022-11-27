@@ -48,6 +48,18 @@ const userSchema= new mongoos.Schema({
     nPlusOne:{
         type:String,
         required:false
+    },
+    onBoardingDate:{
+        type:String,
+        required:false
+    },
+    Status:{
+        type:String,
+        required:false
+    },
+    StatusBg:{
+        type:String,
+        required:false
     }
 })
 

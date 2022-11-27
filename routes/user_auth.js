@@ -5,6 +5,7 @@ const validator= require("../validators/validation")
 const bcrypt = require("bcryptjs")
 const jwt= require("jsonwebtoken")
 
+
 const verifie_token= require("../validators/verifyToken")
 
 //login user
@@ -29,7 +30,12 @@ router.post('/login',async (req,res)=>{
 })
 //create user
 router.post('/register',async (req,res)=>{
+    let ts = Date.now();
 
+    let date_ob = new Date(ts);
+    let date = date_ob.getDate();
+    let month = date_ob.getMonth() + 1;
+    let year = date_ob.getFullYear();
     //validate the data
     const valid=validator.resistration_validation(req.body);
     if(valid.error){
@@ -41,6 +47,9 @@ router.post('/register',async (req,res)=>{
     //hash the password
     const salt= await bcrypt.genSalt(10);
     const hashedpassword= await bcrypt.hash(req.body.password,salt);
+    
+    const datenow=year + "-" + month + "-" + date;
+    console.log(datenow);
 
     const user= new usermodel({
         fullname:req.body.fullname,
@@ -54,6 +63,9 @@ router.post('/register',async (req,res)=>{
         salary:"0",
         active:false, 
         password:hashedpassword,
+        Status:"Pending",
+        StatusBg:"#FEC90F",
+        onBoardingDate:datenow,
     })
     try{
         const newUser=await user.save()
@@ -102,6 +114,8 @@ router.patch('/:id',verifie_token,getUser,async(req,res)=>{
     }
     if(req.body.active!=null){
         res.user.active=req.body.active;
+        res.user.Status="Active";
+        res.user.StatusBg="#8BE78B";
     }
     if(req.body.desig!=null){
         res.user.desig=req.body.desig;
@@ -122,15 +136,80 @@ router.patch('/:id',verifie_token,getUser,async(req,res)=>{
 router.get('/dashboardUserState/get',async (req,res)=>{
     console.log("hi");
     try{
-        const allusers=await usermodel.find();
+        let branch1_active=0;
+        let branch2_active=0;
+        let branch3_active=0;
+        let branch4_active=0;
+        let branch5_active=0;
         const branch1=await usermodel.find({empBranch:"Pasadena, TX 77506"});
+        branch1.forEach(reasult=>{
+            if(reasult.active){
+                branch1_active=branch1_active+1;
+            };
+        });
         const branch2=await usermodel.find({empBranch:"Nederland, TX 77627"});
+        branch2.forEach(reasult=>{
+            if(reasult.active){
+                branch2_active=branch2_active+1;
+            };
+        });
         const branch3=await usermodel.find({empBranch:"Snyder, TX 79549"});
+        branch3.forEach(reasult=>{
+            if(reasult.active){
+                branch3_active=branch3_active+1;
+            };
+        });
         const branch4=await usermodel.find({empBranch:"Angleton, TX 77515"});
+        branch4.forEach(reasult=>{
+            if(reasult.active){
+                branch4_active=branch4_active+1;
+            };
+        });
         const branch5=await usermodel.find({empBranch:"Port Lavaca, TX 77979"});
-        const active=await usermodel.find({active:true});
-        const notactive=await usermodel.find({active:false});
-        res.json({totaluser:allusers.length,branch1:branch1.length,branch2:branch2.length,branch3:branch3.length,branch4:branch4.length,branch5:branch5.length, active:active.length,notactive:notactive.length})
+        branch5.forEach(reasult=>{
+            if(reasult.active){
+                branch5_active=branch5_active+1;
+            };
+        });
+        const active=branch1_active+branch2_active+branch3_active+branch4_active+branch5_active;
+        const notactive=(branch1.length+branch2.length+branch3.length+branch4.length+branch5.length)-active;
+        res.json({totaluser:notactive+active,branch1:branch1.length,branch1_active:branch1_active,branch2:branch2.length,branch2_active:branch2_active,branch3:branch3.length,branch3_active:branch3_active,branch4:branch4.length,branch4_active:branch4_active,branch5:branch5.length,branch5_active:branch5_active, active:active,notactive:notactive})
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+router.get('/dashboardUserState/get/:date',async (req,res)=>{
+    console.log(">>"+req.params.date);
+    try{
+        let cc1=0;
+        let cc2=0;
+        let cc3=0;
+        let cc4=0;
+        let cc5=0;
+        const alluser=await usermodel.find();
+        alluser.forEach(element=>{
+            console.log(element.empBranch);
+            console.log(element.onBoardingDate);
+            if(element.empBranch=="Pasadena, TX 77506" && element.onBoardingDate==req.params.date){
+                console.log("found");
+                cc1=cc1+1;
+            }
+            else if(element.empBranch=="Nederland, TX 77627" && element.onBoardingDate==req.params.date){
+                cc2=cc2+1;
+            }
+            else if(element.empBranch=="Snyder, TX 79549" && element.onBoardingDate==req.params.date){
+                cc3=cc3+1;
+            }
+            else if(element.empBranch=="Angleton, TX 77515" && element.onBoardingDate==req.params.date){
+                cc4=cc4+1;
+            }
+            else if(element.empBranch=="Port Lavaca, TX 77979" && element.onBoardingDate==req.params.date){
+                cc5=cc5+1;
+            }
+        });
+        
+        res.json({branch1:cc1,branch2:cc2,branch3:cc3,branch4:cc4,branch5:cc5})
     }catch(error){
         res.status(500).json({message: error.message})
     }
