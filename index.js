@@ -1,6 +1,7 @@
 require("dotenv").config()
 
 const https= require("https");
+var cors = require('cors');
 const fs= require("fs");
 const path= require("path");
 const express= require("express");
@@ -15,6 +16,7 @@ db.once('open',()=> console.log('Connected to Database!'))
 
 
 app.use(express.json())
+app.use(cors());
 
 const userRouter= require("./routes/user_auth")
 const branchOfficeRouter= require("./routes/brachoffice")
