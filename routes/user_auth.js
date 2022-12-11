@@ -179,6 +179,7 @@ router.get('/dashboardUserState/get',async (req,res)=>{
     }
 })
 
+
 router.get('/dashboardUserState/get/:date',async (req,res)=>{
     console.log(">>"+req.params.date);
     try{
@@ -209,7 +210,11 @@ router.get('/dashboardUserState/get/:date',async (req,res)=>{
             }
         });
         
-        res.json({branch1:cc1,branch2:cc2,branch3:cc3,branch4:cc4,branch5:cc5})
+        res.json([
+            { month: 'HOU', sales: cc1, color: 'white' }, { month: 'SNY', sales: cc3, color: 'white' },
+            { month: 'NED', sales: cc2, color: 'white' }, { month: 'ANG', sales: cc4, color: 'white' },
+            { month: 'PLV', sales: cc5, color: 'white' }
+        ])
     }catch(error){
         res.status(500).json({message: error.message})
     }

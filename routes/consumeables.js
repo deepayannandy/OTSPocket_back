@@ -41,6 +41,16 @@ router.get('/',verifie_token,async (req,res)=>{
     }
 })
 
+//get all consumeable
+router.get('/dashboardConsumable/getall',async (req,res)=>{
+    try{
+        const consumeablesList=await consumeables.find()
+        res.json(consumeablesList)
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
 //update consumeable
 router.patch('/:id',verifie_token,getConsu,async(req,res)=>{
     if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})

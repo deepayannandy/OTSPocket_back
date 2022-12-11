@@ -41,6 +41,16 @@ router.get('/',verifie_token,async (req,res)=>{
     }
 })
 
+//get all equipments
+router.get('/dashboardEquipment/getall',async (req,res)=>{
+    try{
+        const equipmentsList=await equipments.find({})
+        res.json(equipmentsList)
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
 //update equipments
 router.patch('/:id',verifie_token,getEquip,async(req,res)=>{
     if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})

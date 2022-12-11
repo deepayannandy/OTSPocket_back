@@ -39,6 +39,16 @@ router.get('/',verifie_token,async (req,res)=>{
     }
 })
 
+//get all customer
+router.get('/dashboardCustomers/getall',async (req,res)=>{
+    try{
+        const customerData=await customer.find()
+        res.json(customerData)
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
 //middleware
 async function getCustomer(req,res,next){
     let selectedcustomer
