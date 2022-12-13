@@ -25,6 +25,8 @@ router.get('/:id', getBranch,(req,res)=>{
     res.send(res.branch)
 })
 
+
+
 //get all branch
 router.get('/',async (req,res)=>{
     try{

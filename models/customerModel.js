@@ -1,21 +1,21 @@
 const mongoos=require("mongoose")
 
 const CustomerSchema= new mongoos.Schema({
-    customer:{
+    Customer:{
         type:String,
         required:true
     },
     address:{
         type:String,
-        required:true
+        required:false
     },
     contact:{
         type:String,
-        required:true
+        required:false
     },
-    email:{
+    branchID:{
         type:String,
-        required:true
+        required:false
     },
 })
 

@@ -27,6 +27,25 @@ router.get('/:id',verifie_token, getCustomer,(req,res)=>{
     if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})
     res.send(res.customer)
 })
+//patch a customer
+router.patch('/:id',getCustomer,async (req,res)=>{
+    console.log(req.params.id);
+    if(req.body.address!=null){
+        res.customer.address=req.body.address;
+    }
+    if(req.body.contact!=null){
+        res.customer.contact=req.body.contact;
+    }
+    if(req.body.branchID!=null){
+        res.customer.branchID=req.body.branchID;
+    }
+    try{
+        const newcust=await res.customer.save()
+        res.status(201).json({"_id":newcust.id})
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
 
 //get all customer
 router.get('/',verifie_token,async (req,res)=>{
@@ -52,6 +71,7 @@ router.get('/dashboardCustomers/getall',async (req,res)=>{
 //middleware
 async function getCustomer(req,res,next){
     let selectedcustomer
+    console.log(req.params.id);
     try{
         selectedcustomer=await customer.findById(req.params.id)
         if(selectedcustomer==null){
