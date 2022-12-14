@@ -76,6 +76,58 @@ router.post('/register',async (req,res)=>{
     }
 })
 
+//create user
+router.post('/register/dashboard/',async (req,res)=>{
+    let ts = Date.now();
+    let date_ob = new Date(ts);
+    let date = date_ob.getDate();
+    let month = date_ob.getMonth() + 1;
+    let year = date_ob.getFullYear();
+    //validate the data
+    const valid=validator.resistration_validation(req.body);
+    if(valid.error){
+        console.log(valid.error.details[0].message);
+        return res.status(400).send(valid.error.details[0].message);
+
+    }
+    const email_exist=await usermodel.findOne({email:req.body.email});
+    if(email_exist) {
+        console.log("Email already exist!");
+        return res.status(400).send({"message":"Email already exist!"});
+    }
+
+    //hash the password
+    const salt= await bcrypt.genSalt(10);
+    const hashedpassword= await bcrypt.hash(req.body.password,salt);
+    
+    const datenow=year + "-" + month + "-" + date;
+    console.log(datenow);
+
+    const user= new usermodel({
+        fullname:req.body.fullname,
+        mobile:req.body.mobile,
+        email:req.body.email,
+        ssn:req.body.ssn,
+        desig:req.body.desig,
+        empBranch:req.body.empBranch,
+        projid:"",
+        payrate_ST:"0",
+        salary:"0",
+        active:true, 
+        password:hashedpassword,
+        Status:"Active",
+        StatusBg:"#8BE78B",
+        onBoardingDate:datenow,
+    })
+    try{
+        const newUser=await user.save()
+        res.status(201).json({"_id":newUser.id})
+    }
+    catch(error){
+        res.status(400).json({message:error.message})
+    }
+})
+
 //get a user
 router.get('/:id',verifie_token, getUser, (req,res,)=>{
     res.send(res.user)

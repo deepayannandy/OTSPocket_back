@@ -23,6 +23,25 @@ router.post('/',verifie_token,async (req,res)=>{
     }
 })
 
+//add equipments
+router.post('/dashboard/',async (req,res)=>{
+    const eqp= new equipments({
+        name:req.body.name,
+        availableQnt:req.body.availableQnt,
+        dispatchQnt:req.body.dispatchQnt,
+        branchID:req.body.branchID
+    })
+    try{
+        const newEqui=await eqp.save()
+        res.status(201).json(newEqui.id)
+    }
+    catch(error){
+        res.status(400).json({message:error.message})
+    }
+})
+
+
+
 //get a equipments
 router.get('/:id',verifie_token, getEquip,(req,res)=>{
     res.send(res.equip)
@@ -68,6 +87,22 @@ router.patch('/:id',verifie_token,getEquip,async(req,res)=>{
     }
 })
 
+
+//update equipments
+router.patch('/dashboard/:id',getEquip,async(req,res)=>{
+    if(req.body.availableQnt!=null){
+        res.equip.availableQnt=req.body.availableQnt;
+    }
+    if(req.body.dispatchQnt!=null){
+        res.equip.dispatchQnt=req.body.dispatchQnt;
+    }
+    try{
+        const newequip=await res.equip.save()
+        res.status(201).json({"_id":newequip.id})
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
 
 //middleware
 async function getEquip(req,res,next){

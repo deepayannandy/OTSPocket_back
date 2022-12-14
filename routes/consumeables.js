@@ -23,6 +23,23 @@ router.post('/',verifie_token,async (req,res)=>{
     }
 })
 
+router.post('/dashboard/',async (req,res)=>{
+    const con= new consumeables({
+        name:req.body.name,
+        stockQnt:req.body.stockQnt,
+        dispatchQnt:req.body.dispatchQnt,
+        desc:req.body.desc,
+        branchID:req.body.branchID
+    })
+    try{
+        const newConsumeables=await con.save()
+        res.status(201).json(newConsumeables.id)
+    }
+    catch(error){
+        res.status(400).json({message:error.message})
+    }
+})
+
 //get a consumeable
 router.get('/:id',verifie_token,getConsu,(req,res)=>{
     res.send(res.consume)
@@ -54,6 +71,22 @@ router.get('/dashboardConsumable/getall',async (req,res)=>{
 //update consumeable
 router.patch('/:id',verifie_token,getConsu,async(req,res)=>{
     if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})
+    if(req.body.stockQnt!=null){
+        res.consume.stockQnt=req.body.stockQnt;
+    }
+    if(req.body.dispatchQnt!=null){
+        res.consume.dispatchQnt=req.body.dispatchQnt;
+    }
+    try{
+        const newconsume=await res.consume.save()
+        res.status(201).json({"_id":newconsume.id})
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+//update consumeable
+router.patch('/dashboard/:id',getConsu,async(req,res)=>{
     if(req.body.stockQnt!=null){
         res.consume.stockQnt=req.body.stockQnt;
     }
