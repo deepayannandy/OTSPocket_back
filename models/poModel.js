@@ -5,6 +5,7 @@ const PoSchema= new mongoos.Schema({
         type:String,
         required:true
     },
+    //JD
     description:{
         type:String,
         required:true
@@ -14,7 +15,7 @@ const PoSchema= new mongoos.Schema({
         required:true
     },
     startDate:{
-        type:Date,
+        type:String,
         required:true
     },
     wos:{
@@ -24,7 +25,20 @@ const PoSchema= new mongoos.Schema({
     branchID:{
         type:String,
         required:true
-    }
+    },
+    email:{
+        type:String,
+        required:true
+    },
+    managerId:{
+        type:String,
+        required:true
+    },
+    //T&M , Lumpsum, MSA, DailyTimesheet, Callout, Others
+    // typeofpo:{
+    //     type:String,
+    //     required:true
+    // }
 })
 
 module.exports=mongoos.model('po',PoSchema)

@@ -4,7 +4,17 @@ const usermodel=require("../models/userModel")
 const validator= require("../validators/validation")
 const bcrypt = require("bcryptjs")
 const jwt= require("jsonwebtoken")
+const nodemailer = require('nodemailer');
 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'appsdny@gmail.com',
+    pass: ''
+  },
+  port:465,
+  host:"smtp.gmail.com"
+});
 
 const verifie_token= require("../validators/verifyToken")
 
@@ -51,6 +61,24 @@ router.post('/register',async (req,res)=>{
     const datenow=year + "-" + month + "-" + date;
     console.log(datenow);
 
+    var regestereduserMail = {
+        from: 'appsdny@gmail.com',
+        to: req.body.email,
+        subject: 'Tire1Integrity || Onboarding process has been started ||',
+        text: `Hi ${req.body.fullname},
+      Congratulation on your successful registration at Tire1Integrity. Your Profile is shared with the management team for an approval.
+      
+      Your login id: ${req.body.fullname}
+      Password: ${req.body.password}
+      
+      * Do Not Share this mail *
+              
+      We will let you know as soon as your profile got approved.
+      
+      Thank you 
+      Team Tire1Integrity`      
+      };
+
     const user= new usermodel({
         fullname:req.body.fullname,
         mobile:req.body.mobile,
@@ -69,7 +97,15 @@ router.post('/register',async (req,res)=>{
     })
     try{
         const newUser=await user.save()
+        transporter.sendMail(regestereduserMail, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
         res.status(201).json({"_id":newUser.id})
+        
     }
     catch(error){
         res.status(400).json({message:error.message})

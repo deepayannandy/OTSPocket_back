@@ -1,6 +1,7 @@
+const { string } = require("joi")
 const mongoos=require("mongoose")
 
-const PoSchema= new mongoos.Schema({
+const WoSchema= new mongoos.Schema({
     poID:{
         type:String,
         required:true
@@ -14,14 +15,18 @@ const PoSchema= new mongoos.Schema({
         required:true
     },
     startDate:{
-        type:Date,
+        type:String,
         required:true
     },
     endDate:{
-        type:Date,
-        required:true
+        type:String,
+        required:false
     },
     workers:{
+        type:Array,
+        required:false,
+    },
+    timecards:{
         type:Array,
         required:false,
     },
@@ -40,7 +45,11 @@ const PoSchema= new mongoos.Schema({
     branchID:{
         type:String,
         required:true
+    },
+    managerId:{
+        type:String,
+        required:true
     }
 })
 
-module.exports=mongoos.model('po',PoSchema)
+module.exports=mongoos.model('wo',WoSchema)

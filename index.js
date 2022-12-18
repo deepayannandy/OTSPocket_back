@@ -24,6 +24,8 @@ const consumeablesRouter= require("./routes/consumeables.js")
 const equipmentsRouter= require("./routes/equipements.js")
 const timeCardRouter= require("./routes/timeCard.js")
 const customersRouter= require("./routes/customers.js")
+const poRouter= require("./routes/po.js")
+const woRouter= require("./routes/wo.js")
 
 app.use("/api/user",userRouter)
 app.use("/api/branchoffice",branchOfficeRouter)
@@ -31,7 +33,8 @@ app.use("/api/consumeables",consumeablesRouter)
 app.use("/api/equipements", equipmentsRouter)
 app.use("/api/timecard",timeCardRouter)
 app.use("/api/customer",customersRouter)
-
+app.use("/api/po",poRouter)
+app.use("/api/wo",woRouter)
 
 const sslServer=https.createServer(
     {
