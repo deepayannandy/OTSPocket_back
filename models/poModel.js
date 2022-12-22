@@ -5,8 +5,7 @@ const PoSchema= new mongoos.Schema({
         type:String,
         required:true
     },
-    //JD
-    description:{
+    JD:{
         type:String,
         required:true
     },
@@ -14,7 +13,7 @@ const PoSchema= new mongoos.Schema({
         type:String,
         required:true
     },
-    startDate:{
+    timestamp:{
         type:String,
         required:true
     },
@@ -35,10 +34,10 @@ const PoSchema= new mongoos.Schema({
         required:true
     },
     //T&M , Lumpsum, MSA, DailyTimesheet, Callout, Others
-    // typeofpo:{
-    //     type:String,
-    //     required:true
-    // }
+    typeofpo:{
+        type:String,
+        required:true
+    }
 })
 
 module.exports=mongoos.model('po',PoSchema)

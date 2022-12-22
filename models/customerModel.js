@@ -17,7 +17,7 @@ const CustomerSchema= new mongoos.Schema({
         type:String,
         required:false
     },
-    phone:{
+    contact:{
         type:String,
         required:false
     },

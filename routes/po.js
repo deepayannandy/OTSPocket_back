@@ -13,17 +13,18 @@ router.post('/',verifie_token,async (req,res)=>{
     let month = date_ob.getMonth() + 1;
     let year = date_ob.getFullYear();
 
-    const datenow=year + "-" + month + "-" + date;
+    const datenow=year + "-" + month + "-" + date+":"+date_ob.getHours()+":"+date_ob.getMinutes();
     const PO= new po({
         CustomerID:req.body.CustomerID,
-        description:req.body.description,
+        JD:req.body.JD,
         poNumber:req.body.poNumber,
-        startDate:datenow,
+        timestamp:datenow,
         wos:req.body.wos,
         contact:req.body.contact,
         branchID:req.body.branchID,
         managerId:req.body.managerId,
         email:req.body.email,
+        typeofpo:req.body.typeofpo,
     })
     try{
         const newPo=await PO.save()

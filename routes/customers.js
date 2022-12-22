@@ -8,10 +8,12 @@ const verifie_token= require("../validators/verifyToken")
 router.post('/',verifie_token,async (req,res)=>{
     if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})
     const customerData= new customer({
-        customer:req.body.customer,
+        Customer:req.body.Customer,
         address:req.body.address,
         contact:req.body.contact,
         email:req.body.email,
+        contactperson:req.body.contactperson,
+        branchID:req.body.branchID
     })
     try{
         const newCustomer=await customerData.save()
@@ -32,6 +34,12 @@ router.patch('/:id',getCustomer,async (req,res)=>{
     console.log(req.params.id);
     if(req.body.address!=null){
         res.customer.address=req.body.address;
+    }
+    if(req.body.email!=null){
+        res.customer.email=req.body.email;
+    }
+    if(req.body.contactperson!=null){
+        res.customer.contactperson=req.body.contactperson;
     }
     if(req.body.contact!=null){
         res.customer.contact=req.body.contact;
@@ -62,6 +70,16 @@ router.get('/',verifie_token,async (req,res)=>{
 router.get('/dashboardCustomers/getall',async (req,res)=>{
     try{
         const customerData=await customer.find()
+        res.json(customerData)
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+//get all customer
+router.get('/dashboardCustomers/getallnames',async (req,res)=>{
+    console.log("I am called");
+    try{
+        const customerData=await customer.find({}).select('Customer -_id');
         res.json(customerData)
     }catch(error){
         res.status(500).json({message: error.message})
