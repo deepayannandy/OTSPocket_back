@@ -6,12 +6,13 @@ const bcrypt = require("bcryptjs")
 const jwt= require("jsonwebtoken")
 const nodemailer = require('nodemailer');
 const mongodb=require("mongodb");
+require("dotenv").config()
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'appsdny@gmail.com',
-    pass: ''
+    pass: process.env.MAILER_PASS,
   },
   port:465,
   host:"smtp.gmail.com"
@@ -28,7 +29,7 @@ router.post('/login',async (req,res)=>{
         return res.status(400).send({"message":valid.error.details[0].message});
     };
     const user=await usermodel.findOne({email:req.body.email});
-    if(!user) return res.status(400).send({"message":"Email dose not exist!"});
+    if(!user) return res.status(400).send({"message":"User dose not exist!"});
 
     // validate password
     const validPass=await bcrypt.compare(req.body.password,user.password);

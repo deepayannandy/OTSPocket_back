@@ -10,10 +10,10 @@ const mongoos=require("mongoose");
 const aws =require('aws-sdk');
 const { crypto, randomBytes } =require('crypto');
 
-const region="";
-const bucketName="";
-const accessKeyId="";
-const secretAccessKey="";
+const region=process.env.region;
+const bucketName=process.env.bucketName;
+const accessKeyId=process.env.accessKeyId;
+const secretAccessKey=process.env.secretAccessKey;
 
 const s3= new  aws.S3 ({
     region,
