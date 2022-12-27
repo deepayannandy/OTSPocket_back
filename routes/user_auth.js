@@ -70,7 +70,7 @@ router.post('/register',async (req,res)=>{
         text: `Hi ${req.body.fullname},
       Congratulation on your successful registration at Tire1Integrity. Your Profile is shared with the management team for an approval.
       
-      Your login id: ${req.body.fullname}
+      Your login id: ${req.body.email}
       Password: ${req.body.password}
       
       * Do Not Share this mail *
