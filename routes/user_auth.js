@@ -194,7 +194,7 @@ router.get('/',verifie_token,async (req,res)=>{
 })
 
 //update user
-router.patch('/:id',verifie_token,getUser,async(req,res)=>{
+router.patch('/:id',getUser,async(req,res)=>{
     if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})
     if(req.body.payrate_ST!=null){
         res.user.payrate_ST=req.body.payrate_ST;
