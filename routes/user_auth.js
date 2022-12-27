@@ -204,8 +204,37 @@ router.patch('/:id',verifie_token,getUser,async(req,res)=>{
     }
     if(req.body.active!=null){
         res.user.active=req.body.active;
-        res.user.Status="Active";
-        res.user.StatusBg="#8BE78B";
+        if (req.body.active==false){
+            res.user.Status="Pending";
+            res.user.StatusBg="#FEC90F";
+        }
+        else{
+            res.user.Status="Active";
+            res.user.StatusBg="#8BE78B";
+        }
+    }
+    if (req.body.Status!=null){
+        var patchMail = {
+            from: 'appsdny@gmail.com',
+            to: req.body.email,
+            subject: 'Tire1Integrity - Profile Status',
+            text: `Hi ${req.body.fullname},
+            Your request to remove your profile from our database has been initiated.
+          
+            * Confidential *
+          
+            Thank you 
+            Team Tire1Integrity`      
+          };
+          transporter.sendMail(patchMail, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+        req.user.Status=req.body.Status;
+        req.user.StatusBg=req.body.StatusBg;
     }
     if(req.body.desig!=null){
         res.user.desig=req.body.desig;
@@ -321,8 +350,31 @@ router.get('/dashboardUserState/getall',async (req,res)=>{
 
 router.delete("/:id",async (req,res)=>{
     console.log(req.params.id)
-    const reasult= await usermodel.deleteOne({_id: new mongodb.ObjectId(req.params.id)})
+    user=await usermodel.findById(req.params.id)
+        if(user==null){
+            return res.status(404).json({message:"User unavailable!"})
+        }
+    var regestereduserMail = {
+        from: 'appsdny@gmail.com',
+        to: user.email,
+        subject: 'Tire1Integrity - Profile Status',
+        text: `Hi ${user.fullname},
+        Your request profile has been successfully removed from our database.
+      
+        * Confidential *
+      
+        Thank you 
+        Team Tire1Integrity`      
+      };
+      const reasult= await usermodel.deleteOne({_id: new mongodb.ObjectId(req.params.id)})
     try{
+        transporter.sendMail(regestereduserMail, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
         res.json(reasult)
     }catch(error){
         res.status(500).json({message: error.message})
