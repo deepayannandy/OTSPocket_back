@@ -195,7 +195,7 @@ router.get('/',verifie_token,async (req,res)=>{
 
 //update user
 router.patch('/:id',getUser,async(req,res)=>{
-    if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})
+    // if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})
     if(req.body.payrate_ST!=null){
         res.user.payrate_ST=req.body.payrate_ST;
     }
@@ -216,15 +216,15 @@ router.patch('/:id',getUser,async(req,res)=>{
     if (req.body.Status!=null){
         var patchMail = {
             from: 'appsdny@gmail.com',
-            to: req.body.email,
+            to: res.user.email,
             subject: 'Tire1Integrity - Profile Status',
-            text: `Hi ${req.body.fullname},
-            Your request to remove your profile from our database has been initiated.
+            text: `Hi ${res.user.fullname},
+Your request to remove your profile from our database has been initiated.
           
-            * Confidential *
-          
-            Thank you 
-            Team Tire1Integrity`      
+* Confidential *
+
+Thank you 
+Team Tire1Integrity`      
           };
           transporter.sendMail(patchMail, function(error, info){
             if (error) {
@@ -233,8 +233,8 @@ router.patch('/:id',getUser,async(req,res)=>{
               console.log('Email sent: ' + info.response);
             }
           });
-        req.user.Status=req.body.Status;
-        req.user.StatusBg=req.body.StatusBg;
+        res.user.Status=req.body.Status;
+        res.user.StatusBg=req.body.StatusBg;
     }
     if(req.body.desig!=null){
         res.user.desig=req.body.desig;
@@ -359,14 +359,15 @@ router.delete("/:id",async (req,res)=>{
         to: user.email,
         subject: 'Tire1Integrity - Profile Status',
         text: `Hi ${user.fullname},
-        Your request profile has been successfully removed from our database.
+Your request profile has been successfully removed from our database.
       
         * Confidential *
       
         Thank you 
         Team Tire1Integrity`      
       };
-      const reasult= await usermodel.deleteOne({_id: new mongodb.ObjectId(req.params.id)})
+    const reasult= await usermodel.deleteOne({_id: new mongodb.ObjectId(req.params.id)})
+
     try{
         transporter.sendMail(regestereduserMail, function(error, info){
             if (error) {
