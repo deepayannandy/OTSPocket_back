@@ -25,6 +25,7 @@ router.post('/',verifie_token,async (req,res)=>{
         managerId:req.body.managerId,
         email:req.body.email,
         typeofpo:req.body.typeofpo,
+        docs:req.body.docs
     })
     try{
         const newPo=await PO.save()
@@ -57,6 +58,9 @@ router.patch("/:id",getPo,async (req,res)=>{
     console.log(res.PO);
     if(req.body.wo!=null){
         res.PO.wos.push(req.body.wo)
+    }
+    if(req.body.docs!=null){
+        res.PO.docs.contact(req.body.docs)
     }
     try{
         const newPo=await res.PO.save()

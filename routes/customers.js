@@ -11,6 +11,8 @@ router.post('/',verifie_token,async (req,res)=>{
         Customer:req.body.Customer,
         address:req.body.address,
         contact:req.body.contact,
+        fax:req.body.fax,
+        mobile:req.body.mobile,
         email:req.body.email,
         contactperson:req.body.contactperson,
         branchID:req.body.branchID

@@ -7,7 +7,20 @@ const path= require("path");
 const express= require("express");
 const app= express();
 const mongoos=require("mongoose");
+const aws =require('aws-sdk');
+const { crypto, randomBytes } =require('crypto');
 
+const region="us-east-1";
+const bucketName="pocsof-t1l";
+const accessKeyId="AKIAZUTLRCYFQDSS4WIR";
+const secretAccessKey="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";
+
+const s3= new  aws.S3 ({
+    region,
+    accessKeyId,
+    secretAccessKey,
+    signatureVersion:'v4',
+})
 
 mongoos.connect(process.env.DATABASE_URL)
 const db= mongoos.connection
@@ -45,6 +58,18 @@ const sslServer=https.createServer(
 
 sslServer.listen(3443,()=> console.log("https Server is listning!"))
 
+app.get('/s3url/:name',async (req,res)=>{
+    console.log(req.params.name)
+    const imagename=req.params.name
+    
+    const params=({
+        Bucket:bucketName,
+        Key:imagename,
+        Expires:60,
+    })
+    const uploadUrl=await s3.getSignedUrlPromise('putObject',params)
+    res.send({uploadUrl})
+})
 app.listen(6622,()=>{
     console.log("Http Server is listning!")
 })

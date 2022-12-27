@@ -21,6 +21,14 @@ const CustomerSchema= new mongoos.Schema({
         type:String,
         required:false
     },
+    fax:{
+        type:String,
+        required:false
+    },
+    mobile:{
+        type:String,
+        required:false
+    },
     branchID:{
         type:String,
         required:false

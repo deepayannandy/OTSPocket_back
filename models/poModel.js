@@ -37,6 +37,10 @@ const PoSchema= new mongoos.Schema({
     typeofpo:{
         type:String,
         required:true
+    },
+    deos:{
+        type:Array,
+        required:false
     }
 })
 

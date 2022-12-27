@@ -5,6 +5,7 @@ const validator= require("../validators/validation")
 const bcrypt = require("bcryptjs")
 const jwt= require("jsonwebtoken")
 const nodemailer = require('nodemailer');
+const mongodb=require("mongodb");
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -312,6 +313,16 @@ router.get('/dashboardUserState/getall',async (req,res)=>{
     try{
         const users=await usermodel.find();
         res.json(users)
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+router.delete("/:id",async (req,res)=>{
+    console.log(req.params.id)
+    const reasult= await usermodel.deleteOne({_id: new mongodb.ObjectId(req.params.id)})
+    try{
+        res.json(reasult)
     }catch(error){
         res.status(500).json({message: error.message})
     }
