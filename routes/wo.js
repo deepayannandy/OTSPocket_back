@@ -35,11 +35,11 @@ router.post('/',getPo,verifie_token,async (req,res)=>{
     })
     try{
         const newWo=await WO.save()
-        res.PO.wos.push(newWo._id)
+        res.PO.wos.push(newWo.wonumber)
         const newPo=await res.PO.save()
         for (worker in req.body.workers){
             workerdata=await user.findById(req.body.workers[worker])
-            workerdata.projid=newWo._id;
+            workerdata.projid=newWo.woNumber;
             const updateduser=await workerdata.save()
         }
         for (Con in req.body.consumeables){
@@ -77,7 +77,26 @@ router.get('/',async (req,res)=>{
         res.status(500).json({message: error.message})
     }
 })
-
+// scheduling
+router.get('/sghedulaing/get',async (req,res)=>{
+    let fulldata=[]
+    let data={}
+    const wos=await wo.find()
+    for (let wo in wos){
+        console.log(wo);
+        data.Subject=wos[wo].woNumber;
+        data.StartTime=wos[wo].startDate;
+        if(wos[wo].endDate==""){
+            data.EndTime=new Date();
+        }
+    }
+    try{
+        
+        res.json({"Message":"Hi"})
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
 
 router.patch("/:id",getWo,async (req,res)=>{
     if (req.body.addworkers!=null){

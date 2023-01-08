@@ -211,6 +211,16 @@ router.patch('/:id',getUser,async(req,res)=>{
         else{
             res.user.Status="Active";
             res.user.StatusBg="#8BE78B";
+            var approveduserMail = {
+                from: 'appsdny@gmail.com',
+                to: 'deepayan.622@gmail.com',
+                subject: 'Tire1Integrity || Onboarding process approved||',
+                text: `Hi ${res.user.fullname},
+Congratulation your profile has been approved at Tire1Integrity.
+              
+Thank you 
+Team Tire1Integrity`      
+              };
         }
     }
     if (req.body.Status!=null){
@@ -359,12 +369,12 @@ router.delete("/:id",async (req,res)=>{
         to: user.email,
         subject: 'Tire1Integrity - Profile Status',
         text: `Hi ${user.fullname},
-Your request profile has been successfully removed from our database.
+Your profile has been successfully removed from our database.
       
-        * Confidential *
+* Confidential *
       
-        Thank you 
-        Team Tire1Integrity`      
+Thank you 
+Team Tire1Integrity`      
       };
     const reasult= await usermodel.deleteOne({_id: new mongodb.ObjectId(req.params.id)})
 
