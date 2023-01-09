@@ -221,6 +221,13 @@ Congratulation your profile has been approved at Tire1Integrity.
 Thank you 
 Team Tire1Integrity`      
               };
+              transporter.sendMail(approveduserMail, function(error, info){
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log('Email sent: ' + info.response);
+                }
+              });
         }
     }
     if (req.body.Status!=null){
