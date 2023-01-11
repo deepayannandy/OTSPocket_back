@@ -91,9 +91,10 @@ router.get('/sghedulaing/get',async (req,res)=>{
             data.EndTime=new Date();
         }
         data.EndTime=Date(wos[wo].endDate);
+        fulldata.push(data);
     }
     try{
-        res.json(data)
+        res.json(fulldata)
     }catch(error){
         res.status(500).json({message: error.message})
     }
