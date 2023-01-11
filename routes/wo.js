@@ -20,6 +20,7 @@ router.post('/',getPo,verifie_token,async (req,res)=>{
     const wonumber="T1IWO"+year+"-"+res.PO.CustomerID.substring(0, 3)+month+date+date_ob.getHours()+date_ob.getMinutes();
     const WO= new wo({
         poID:req.body.poID,
+        poName:res.PO.poNumber,
         description:req.body.description,
         woNumber:wonumber,
         startDate:datenow,
@@ -39,7 +40,7 @@ router.post('/',getPo,verifie_token,async (req,res)=>{
         const newPo=await res.PO.save()
         for (worker in req.body.workers){
             workerdata=await user.findById(req.body.workers[worker])
-            workerdata.projid=newWo.woNumber;
+            workerdata.projid=wonumber;
             const updateduser=await workerdata.save()
         }
         for (Con in req.body.consumeables){
@@ -85,14 +86,14 @@ router.get('/sghedulaing/get',async (req,res)=>{
     for (let wo in wos){
         console.log(wo);
         data.Subject=wos[wo].woNumber;
-        data.StartTime=wos[wo].startDate;
+        data.StartTime=Date(wos[wo].startDate);
         if(wos[wo].endDate==""){
             data.EndTime=new Date();
         }
+        data.EndTime=Date(wos[wo].endDate);
     }
     try{
-        
-        res.json({"Message":"Hi"})
+        res.json(data)
     }catch(error){
         res.status(500).json({message: error.message})
     }

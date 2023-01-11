@@ -6,6 +6,10 @@ const WoSchema= new mongoos.Schema({
         type:String,
         required:true
     },
+    poName:{
+        type:String,
+        required:true
+    },
     description:{
         type:String,
         required:true

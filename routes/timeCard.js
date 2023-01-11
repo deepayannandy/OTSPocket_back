@@ -18,10 +18,12 @@ router.post("/",verifie_token,async(req,res)=>{
     const user=await usermodel.findOne({_id:req.tokendata._id});
     console.log(user.fullname)
     const tc= new timecard({
-        submitdate : Date(req.body.submitdate),
+        submitdate :req.body.submitdate,
         empid :req.tokendata._id,
-        status :0,
+        status :"Submitted",
         branchID : user.empBranch,
+        empname:user.fullname,
+        shift:req.body.shift,
         po :req.body.po,
         wo :req.body.wo,
         st :req.body.st,

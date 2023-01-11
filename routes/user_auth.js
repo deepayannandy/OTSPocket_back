@@ -60,7 +60,7 @@ router.post('/register',async (req,res)=>{
     const salt= await bcrypt.genSalt(10);
     const hashedpassword= await bcrypt.hash(req.body.password,salt);
     
-    const datenow=year + "-" + month + "-" + date;
+    const datenow=year + "-" + ("0" + month).slice(-2) + "-" + ("0" + date).slice(-2);
     console.log(datenow);
 
     var regestereduserMail = {
@@ -196,6 +196,12 @@ router.get('/',verifie_token,async (req,res)=>{
 //update user
 router.patch('/:id',getUser,async(req,res)=>{
     // if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})
+    if(req.body.email!=null){
+        res.user.email=req.body.email;
+    }
+    if(req.body.fullname!=null){
+        res.user.fullname=req.body.fullname;
+    }
     if(req.body.payrate_ST!=null){
         res.user.payrate_ST=req.body.payrate_ST;
     }
