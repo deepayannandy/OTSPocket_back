@@ -167,7 +167,7 @@ router.post('/register/dashboard/',async (req,res)=>{
 })
 
 //get a user
-router.get('/:id',verifie_token, getUser, (req,res,)=>{
+router.get('/:id', getUser, (req,res,)=>{
     res.send(res.user)
 })
 // get my data
