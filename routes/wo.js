@@ -78,6 +78,7 @@ router.get('/',async (req,res)=>{
         res.status(500).json({message: error.message})
     }
 })
+
 // scheduling
 router.get('/sghedulaing/get',async (req,res)=>{
     let fulldata=[]
@@ -86,11 +87,13 @@ router.get('/sghedulaing/get',async (req,res)=>{
     for (let wo in wos){
         console.log(wo);
         data.Subject=wos[wo].woNumber;
-        data.StartTime=Date(wos[wo].startDate);
+        let stdate=wos[wo].startDate.split("-")
+        data.StartTime=new Date(stdate[0],stdate[1],stdate[2]);
         if(wos[wo].endDate==""){
             data.EndTime=new Date();
         }
-        data.EndTime=Date(wos[wo].endDate);
+        let endate=wos[wo].startDate.split("-")
+        data.EndTime=new Date(endate[0],endate[1],endate[2]);
         fulldata.push(data);
     }
     try{
