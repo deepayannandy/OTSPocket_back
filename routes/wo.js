@@ -82,21 +82,27 @@ router.get('/',async (req,res)=>{
 // scheduling
 router.get('/sghedulaing/get',async (req,res)=>{
     let fulldata=[]
-    let data={}
     const wos=await wo.find()
     for (let wo in wos){
-        console.log(wo);
+        let data={}
+        // console.log(wo);
         data.Subject=wos[wo].woNumber;
         let stdate=wos[wo].startDate.split("-")
-        data.StartTime=new Date(stdate[0],stdate[1]-1,stdate[2],23,59);
-        if(wos[wo].endDate==""){
-            data.EndTime=Date();
+        // console.log(stdate)
+        data.StartTime=new Date(stdate[0],stdate[1]-1,stdate[2]);
+        console.log(wos[wo].endDate.length)
+        if(wos[wo].endDate.length==0){
+            data.EndTime=new Date();
         }
+        else{
         let endate=wos[wo].startDate.split("-")
-        data.EndTime=new Date(endate[0],endate[1]-1,endate[2],23,59);
+        data.EndTime=new Date(endate[0],endate[1]-1,endate[2],23,59);}
+        // console.log(data)
         fulldata.push(data);
     }
+
     try{
+        console.log(fulldata)
         res.json(fulldata)
     }catch(error){
         res.status(500).json({message: error.message})
