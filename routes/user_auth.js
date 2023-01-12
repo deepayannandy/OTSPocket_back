@@ -68,17 +68,17 @@ router.post('/register',async (req,res)=>{
         to: req.body.email,
         subject: 'Tier1Integrity || Onboarding process has been started ||',
         text: `Hi ${req.body.fullname},
-      Congratulation on your successful registration at Tier1Integrity. Your Profile is shared with the management team for an approval.
+Congratulations on your successful registration at Tier1Integrity. Your Profile is shared with the management team for an approval.
       
-      Your login id: ${req.body.email}
-      Password: ${req.body.password}
+Your login id: ${req.body.email}
+Password: ${req.body.password}
       
-      * Do Not Share this mail *
+* Do Not Share this mail *
               
-      We will let you know as soon as your profile got approved.
+We will let you know as soon as your profile got approved.
       
-      Thank you 
-      Team Tier1Integrity`      
+Thank you 
+Team Tier1Integrity`      
       };
 
     const user= new usermodel({
@@ -222,7 +222,7 @@ router.patch('/:id',getUser,async(req,res)=>{
                 to: res.user.email,
                 subject: 'Tier1Integrity || Onboarding process approved||',
                 text: `Hi ${res.user.fullname},
-Congratulation your profile has been approved at Tier1Integrity.
+Congratulations your profile has been approved at Tier1Integrity.
               
 Thank you 
 Team Tier1Integrity`      
