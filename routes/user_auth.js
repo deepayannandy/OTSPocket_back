@@ -219,7 +219,7 @@ router.patch('/:id',getUser,async(req,res)=>{
             res.user.StatusBg="#8BE78B";
             var approveduserMail = {
                 from: 'appsdny@gmail.com',
-                to: 'deepayan.622@gmail.com',
+                to: res.user.email,
                 subject: 'Tire1Integrity || Onboarding process approved||',
                 text: `Hi ${res.user.fullname},
 Congratulation your profile has been approved at Tire1Integrity.
