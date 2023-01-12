@@ -66,9 +66,9 @@ router.post('/register',async (req,res)=>{
     var regestereduserMail = {
         from: 'appsdny@gmail.com',
         to: req.body.email,
-        subject: 'Tire1Integrity || Onboarding process has been started ||',
+        subject: 'Tier1Integrity || Onboarding process has been started ||',
         text: `Hi ${req.body.fullname},
-      Congratulation on your successful registration at Tire1Integrity. Your Profile is shared with the management team for an approval.
+      Congratulation on your successful registration at Tier1Integrity. Your Profile is shared with the management team for an approval.
       
       Your login id: ${req.body.email}
       Password: ${req.body.password}
@@ -78,7 +78,7 @@ router.post('/register',async (req,res)=>{
       We will let you know as soon as your profile got approved.
       
       Thank you 
-      Team Tire1Integrity`      
+      Team Tier1Integrity`      
       };
 
     const user= new usermodel({
@@ -220,12 +220,12 @@ router.patch('/:id',getUser,async(req,res)=>{
             var approveduserMail = {
                 from: 'appsdny@gmail.com',
                 to: res.user.email,
-                subject: 'Tire1Integrity || Onboarding process approved||',
+                subject: 'Tier1Integrity || Onboarding process approved||',
                 text: `Hi ${res.user.fullname},
-Congratulation your profile has been approved at Tire1Integrity.
+Congratulation your profile has been approved at Tier1Integrity.
               
 Thank you 
-Team Tire1Integrity`      
+Team Tier1Integrity`      
               };
               transporter.sendMail(approveduserMail, function(error, info){
                 if (error) {
@@ -240,14 +240,14 @@ Team Tire1Integrity`
         var patchMail = {
             from: 'appsdny@gmail.com',
             to: res.user.email,
-            subject: 'Tire1Integrity - Profile Status',
+            subject: 'Tier1Integrity - Profile Status',
             text: `Hi ${res.user.fullname},
 Your request to remove your profile from our database has been initiated.
           
 * Confidential *
 
 Thank you 
-Team Tire1Integrity`      
+Team Tier1Integrity`      
           };
           transporter.sendMail(patchMail, function(error, info){
             if (error) {
@@ -380,14 +380,14 @@ router.delete("/:id",async (req,res)=>{
     var regestereduserMail = {
         from: 'appsdny@gmail.com',
         to: user.email,
-        subject: 'Tire1Integrity - Profile Status',
+        subject: 'Tier1Integrity - Profile Status',
         text: `Hi ${user.fullname},
 Your profile has been successfully removed from our database.
       
 * Confidential *
       
 Thank you 
-Team Tire1Integrity`      
+Team Tier1Integrity`      
       };
     const reasult= await usermodel.deleteOne({_id: new mongodb.ObjectId(req.params.id)})
 
