@@ -13,6 +13,11 @@ router.post('/',verifie_token,async (req,res)=>{
     let month = date_ob.getMonth() + 1;
     let year = date_ob.getFullYear();
 
+    const finddata= await po.findOne({"poNumber":req.body.poNumber})
+    if(finddata!=null){
+        return res.status(404).json({message:"PO# already exist!"})
+    }
+
     const datenow=year + "-" + month + "-" + date+":"+date_ob.getHours()+":"+date_ob.getMinutes();
     const PO= new po({
         CustomerID:req.body.CustomerID,

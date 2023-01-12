@@ -41,7 +41,7 @@ router.post('/dashboard/',async (req,res)=>{
 })
 
 //get a consumeable
-router.get('/:id',verifie_token,getConsu,(req,res)=>{
+router.get('/:id',getConsu,(req,res)=>{
     res.send(res.consume)
 })
 

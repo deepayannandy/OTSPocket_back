@@ -43,7 +43,7 @@ router.post('/dashboard/',async (req,res)=>{
 
 
 //get a equipments
-router.get('/:id',verifie_token, getEquip,(req,res)=>{
+router.get('/:id', getEquip,(req,res)=>{
     res.send(res.equip)
 })
 
@@ -59,6 +59,7 @@ router.get('/',verifie_token,async (req,res)=>{
         res.status(500).json({message: error.message})
     }
 })
+
 
 //get all equipments
 router.get('/dashboardEquipment/getall',async (req,res)=>{
