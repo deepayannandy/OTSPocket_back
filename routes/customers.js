@@ -77,9 +77,20 @@ router.get('/dashboardCustomers/getall',async (req,res)=>{
         res.status(500).json({message: error.message})
     }
 })
+
+//get all customer
+router.get('/dashboardCustomers/byname/:name',async (req,res)=>{
+    console.log(req.params.name);
+    try{
+        const customerData=await customer.find({"Customer":req.params.name})
+        res.json(customerData)
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
 //get all customer
 router.get('/dashboardCustomers/getallnames',async (req,res)=>{
-    console.log("I am called");
+    
     try{
         const customerData=await customer.find({}).select('Customer -_id');
         res.json(customerData)
