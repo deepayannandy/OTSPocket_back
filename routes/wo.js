@@ -91,6 +91,8 @@ router.get('/sghedulaing/get',async (req,res)=>{
         let data={}
         // console.log(wo);
         data.Subject=wos[wo].woNumber;
+        data.IsReadonly=true;
+        data.colorField="#ea7a57";
         let stdate=wos[wo].startDate.split("-")
         // console.log(stdate)
         data.StartTime=new Date(stdate[0],stdate[1]-1,stdate[2]);
