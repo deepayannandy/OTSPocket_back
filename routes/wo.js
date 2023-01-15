@@ -92,15 +92,16 @@ router.get('/sghedulaing/get',async (req,res)=>{
         // console.log(wo);
         data.Subject=wos[wo].woNumber;
         data.IsReadonly=true;
-        data.colorField="#ea7a57";
         let stdate=wos[wo].startDate.split("-")
         // console.log(stdate)
         data.StartTime=new Date(stdate[0],stdate[1]-1,stdate[2]);
         console.log(wos[wo].endDate.length)
         if(wos[wo].endDate.length==0){
             data.EndTime=new Date();
+            data.colorField="#ea7a57";
         }
         else{
+        data.colorField="#228B22";
         let endate=wos[wo].startDate.split("-")
         data.EndTime=new Date(endate[0],endate[1]-1,endate[2],23,59);}
         // console.log(data)
