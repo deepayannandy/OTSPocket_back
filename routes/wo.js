@@ -143,6 +143,17 @@ router.patch("/:id",getWo,async (req,res)=>{
     }
 })
 
+//get wodata by name
+router.get('/byname/:name',async (req,res)=>{
+    console.log(req.params.name);
+    try{
+        const wodata=await wo.findOne({"woNumber":req.params.name})
+        res.json(wodata)
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
 //middleware
 async function getWo(req,res,next){
     let WO
