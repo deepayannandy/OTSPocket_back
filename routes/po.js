@@ -22,10 +22,13 @@ router.post('/',verifie_token,async (req,res)=>{
     const PO= new po({
         CustomerID:req.body.CustomerID,
         JD:req.body.JD,
+        JT:req.body.JT,
         poNumber:req.body.poNumber,
         timestamp:datenow,
         wos:req.body.wos,
         contact:req.body.contact,
+        address:req.body.address,
+        contactperson:req.body.contactperson,
         branchID:req.body.branchID,
         managerId:req.body.managerId,
         email:req.body.email,

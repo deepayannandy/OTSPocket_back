@@ -9,6 +9,22 @@ const PoSchema= new mongoos.Schema({
         type:String,
         required:true
     },
+    JT:{
+        type:String,
+        required:true
+    },
+    contact:{
+        type:String,
+        required:true
+    },
+    address:{
+        type:String,
+        required:true
+    },
+    contactperson:{
+        type:String,
+        required:true
+    },
     poNumber:{
         type:String,
         required:true
