@@ -10,7 +10,7 @@ const WoSchema= new mongoos.Schema({
         type:String,
         required:true
     },
-    description:{
+    JT:{
         type:String,
         required:true
     },
