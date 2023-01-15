@@ -102,8 +102,8 @@ router.get('/sghedulaing/get',async (req,res)=>{
         }
         else{
         data.colorField="#228B22";
-        let endate=wos[wo].startDate.split("-")
-        data.EndTime=new Date(endate[0],endate[1]-1,endate[2],23,59);}
+        let endate=wos[wo].endDate.split("-")
+        data.EndTime=new Date(endate[0],endate[1]-1,endate[2]);}
         // console.log(data)
         fulldata.push(data);
     }
