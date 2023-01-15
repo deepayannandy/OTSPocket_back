@@ -14,7 +14,7 @@ router.post('/',getPo,verifie_token,async (req,res)=>{
     let date = date_ob.getDate();
     let month = date_ob.getMonth() + 1;
     let year = date_ob.getFullYear();
-
+    let workersarr=[]
     const datenow=year + "-" + month + "-" + date;
     //T1I-CostCenter-ABC1216830
     const wonumber="T1IWO"+year+"-"+res.PO.CustomerID.substring(0, 3)+month+date+date_ob.getHours()+date_ob.getMinutes();
@@ -22,9 +22,9 @@ router.post('/',getPo,verifie_token,async (req,res)=>{
         poID:req.body.poID,
         poName:res.PO.poNumber,
         description:req.body.description,
+        workers:req.body.workers,
         woNumber:wonumber,
         startDate:datenow,
-        workers:req.body.workers,
         contact:req.body.contact,
         branchID:req.body.branchID,
         managerId:req.body.managerId,
@@ -33,13 +33,15 @@ router.post('/',getPo,verifie_token,async (req,res)=>{
         rentedEquipements:req.body.rentedEquipements,
         endDate:"",
         timecards:[]
+        
     })
     try{
-        const newWo=await WO.save()
-        res.PO.wos.push(newWo.wonumber)
+        
+        res.PO.wos.push(wonumber)
         const newPo=await res.PO.save()
         for (worker in req.body.workers){
             workerdata=await user.findById(req.body.workers[worker])
+            workersarr.push([req.body.workers[worker],workerdata.fullname])
             workerdata.projid=wonumber;
             const updateduser=await workerdata.save()
         }
@@ -54,6 +56,8 @@ router.post('/',getPo,verifie_token,async (req,res)=>{
             equipement.dispatchQnt=equipement.dispatchQnt+req.body.equipements[Equip][1];
             const updatedequipements=await equipement.save()
         }
+        WO.workers=workersarr;
+        const newWo=await WO.save()
         res.status(201).json({"poid":newPo._id,"woid":newWo._id})
     }
     catch(error){
