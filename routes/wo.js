@@ -21,7 +21,7 @@ router.post('/',getPo,verifie_token,async (req,res)=>{
     const WO= new wo({
         poID:req.body.poID,
         poName:res.PO.poNumber,
-        description:req.body.description,
+        JT:req.body.JT,
         workers:req.body.workers,
         woNumber:wonumber,
         startDate:datenow,
