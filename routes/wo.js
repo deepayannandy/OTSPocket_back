@@ -31,10 +31,17 @@ router.post('/',getPo,verifie_token,async (req,res)=>{
         consumeables:req.body.consumeables,
         equipements:req.body.equipements,
         rentedEquipements:req.body.rentedEquipements,
+        timecards:[],
         endDate:"",
-        timecards:[]
         
     })
+    if(req.body.endDate!= null){
+        WO.endDate=req.body.endDate;
+    }
+    if(req.body.startDate!= null){
+        WO.startDate=req.body.startDate;
+    }
+    
     try{
         
         res.PO.wos.push(wonumber)
