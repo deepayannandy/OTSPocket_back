@@ -86,7 +86,7 @@ Team Tier1Integrity`
         mobile:req.body.mobile,
         email:req.body.email,
         ssn:req.body.ssn,
-        desig:"Employee",
+        desig:req.body.desig,
         empBranch:req.body.empBranch,
         projid:"",
         payrate_ST:"0",
