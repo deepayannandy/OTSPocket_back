@@ -80,6 +80,24 @@ We will let you know as soon as your profile got approved.
 Thank you 
 Team Tier1Integrity`      
       };
+var managementMail = {
+        from: 'appsdny@gmail.com',
+        to: 'admin@t1integrity.com',
+        subject: `${req.body.fullname}|| Approval Required ||`,
+        text: `Dear Management,
+New registered user(s) need your approval. 
+         
+User Details
+    Full name: ${req.body.fullname}
+    Email: ${req.body.email}
+    Cost Centre: ${req.body.empBranch}
+    Contact: ${req.body.mobile}
+         
+* Do Not Share this mail *
+         
+Thank you
+Team Tier1Integrity`      
+      };
 
     const user= new usermodel({
         fullname:req.body.fullname,
@@ -100,6 +118,13 @@ Team Tier1Integrity`
     try{
         const newUser=await user.save()
         transporter.sendMail(regestereduserMail, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+          transporter.sendMail(managementMail, function(error, info){
             if (error) {
               console.log(error);
             } else {
