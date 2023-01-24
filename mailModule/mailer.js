@@ -41,7 +41,7 @@ Team Tire1Integrity`
 var regestrationAdimnMail = {
     from: 'appsdny@gmail.com',
     to: 'dnyindia@gmail.com',
-    subject: 'John Smith || Approvl needed',
+    subject: 'John Smith || Approval needed',
     text: `Dear Management,
 New onboarding employee waiting for your approval.
 
@@ -54,7 +54,7 @@ User Details
 * Do Not Share this mail with anyone else *
   
 Thank you 
-Team Tire1Integrity`      
+Team Tier1Integrity`      
   };
   
 
