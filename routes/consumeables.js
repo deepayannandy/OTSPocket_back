@@ -12,7 +12,8 @@ router.post('/',verifie_token,async (req,res)=>{
         stockQnt:req.body.stockQnt,
         dispatchQnt:req.body.dispatchQnt,
         desc:req.body.desc,
-        branchID:req.body.branchID
+        branchID:req.body.branchID,
+        UR:(req.body.branchID== null?0:req.body.UR)
     })
     try{
         const newConsumeables=await con.save()
@@ -29,7 +30,8 @@ router.post('/dashboard/',async (req,res)=>{
         stockQnt:req.body.stockQnt,
         dispatchQnt:req.body.dispatchQnt,
         desc:req.body.desc,
-        branchID:req.body.branchID
+        branchID:req.body.branchID,
+        UR:(req.body.branchID== null?0:req.body.UR)
     })
     try{
         const newConsumeables=await con.save()
@@ -71,6 +73,9 @@ router.get('/dashboardConsumable/getall',async (req,res)=>{
 //update consumeable
 router.patch('/:id',verifie_token,getConsu,async(req,res)=>{
     if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})
+    if (req.body.UR!=null){
+        res.equip.UR=req.body.UR;
+    }
     if(req.body.stockQnt!=null){
         res.consume.stockQnt=req.body.stockQnt;
     }
@@ -87,6 +92,9 @@ router.patch('/:id',verifie_token,getConsu,async(req,res)=>{
 
 //update consumeable
 router.patch('/dashboard/:id',getConsu,async(req,res)=>{
+    if (req.body.UR!=null){
+        res.equip.UR=req.body.UR;
+    }
     if(req.body.stockQnt!=null){
         res.consume.stockQnt=req.body.stockQnt;
     }

@@ -39,6 +39,7 @@ const timeCardRouter= require("./routes/timeCard.js")
 const customersRouter= require("./routes/customers.js")
 const poRouter= require("./routes/po.js")
 const woRouter= require("./routes/wo.js")
+const lrRouter= require("./routes/laborRate")
 
 app.use("/api/user",userRouter)
 app.use("/api/branchoffice",branchOfficeRouter)
@@ -48,6 +49,7 @@ app.use("/api/timecard",timeCardRouter)
 app.use("/api/customer",customersRouter)
 app.use("/api/po",poRouter)
 app.use("/api/wo",woRouter)
+app.use("/api/lr",lrRouter)
 
 const sslServer=https.createServer(
     {

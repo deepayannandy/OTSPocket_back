@@ -13,6 +13,10 @@ const ConsumeableSchema= new mongoos.Schema({
         type:Number,
         required:true
     },
+    UR:{
+        type:Number,
+        required:false
+    },
     desc:{
         type:String,
         required:false

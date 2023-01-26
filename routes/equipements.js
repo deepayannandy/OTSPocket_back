@@ -12,7 +12,8 @@ router.post('/',verifie_token,async (req,res)=>{
         name:req.body.name,
         availableQnt:req.body.availableQnt,
         dispatchQnt:req.body.dispatchQnt,
-        branchID:req.body.branchID
+        branchID:req.body.branchID,
+        UR:(req.body.branchID== null?0:req.body.UR)
     })
     try{
         const newEqui=await eqp.save()
@@ -29,7 +30,8 @@ router.post('/dashboard/',async (req,res)=>{
         name:req.body.name,
         availableQnt:req.body.availableQnt,
         dispatchQnt:req.body.dispatchQnt,
-        branchID:req.body.branchID
+        branchID:req.body.branchID,
+        UR:(req.body.branchID== null?0:req.body.UR)
     })
     try{
         const newEqui=await eqp.save()
@@ -74,6 +76,9 @@ router.get('/dashboardEquipment/getall',async (req,res)=>{
 //update equipments
 router.patch('/:id',verifie_token,getEquip,async(req,res)=>{
     if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})
+    if (req.body.UR!=null){
+        res.equip.UR=req.body.UR;
+    }
     if(req.body.availableQnt!=null){
         res.equip.availableQnt=req.body.availableQnt;
     }
@@ -91,6 +96,9 @@ router.patch('/:id',verifie_token,getEquip,async(req,res)=>{
 
 //update equipments
 router.patch('/dashboard/:id',getEquip,async(req,res)=>{
+    if (req.body.UR!=null){
+        res.equip.UR=req.body.UR;
+    }
     if(req.body.availableQnt!=null){
         res.equip.availableQnt=req.body.availableQnt;
     }
