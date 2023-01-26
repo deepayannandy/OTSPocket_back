@@ -11,6 +11,7 @@ const schema=joi.object().keys({
     empBranch:joi.string().min(6).required(),
     desig:joi.string().required(),
     projid:joi.required(),
+    desigcatagory:joi.required(),
 });
 return schema.validate(data);
 }
