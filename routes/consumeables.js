@@ -74,7 +74,7 @@ router.get('/dashboardConsumable/getall',async (req,res)=>{
 router.patch('/:id',verifie_token,getConsu,async(req,res)=>{
     if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})
     if (req.body.UR!=null){
-        res.equip.UR=req.body.UR;
+        res.consume.UR=req.body.UR;
     }
     if(req.body.stockQnt!=null){
         res.consume.stockQnt=req.body.stockQnt;
@@ -93,7 +93,7 @@ router.patch('/:id',verifie_token,getConsu,async(req,res)=>{
 //update consumeable
 router.patch('/dashboard/:id',getConsu,async(req,res)=>{
     if (req.body.UR!=null){
-        res.equip.UR=req.body.UR;
+        res.consume.UR=req.body.UR;
     }
     if(req.body.stockQnt!=null){
         res.consume.stockQnt=req.body.stockQnt;
