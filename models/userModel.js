@@ -21,6 +21,14 @@ const userSchema= new mongoos.Schema({
         type:String,
         required:true
     },
+    desigid:{
+        type:String,
+        required:true
+    },
+    desigcatagory:{
+        type:String,
+        required:true
+    },
     projid:{
         type:String,
         required:false

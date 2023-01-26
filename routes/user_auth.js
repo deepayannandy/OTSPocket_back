@@ -114,6 +114,8 @@ Team Tier1Integrity`
         Status:"Pending",
         StatusBg:"#FEC90F",
         onBoardingDate:datenow,
+        desigcatagory:req.body.desigcatagory,
+        desigid:req.body.desigid,
     })
     try{
         const newUser=await user.save()
