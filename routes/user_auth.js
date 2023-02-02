@@ -82,7 +82,7 @@ Team Tier1Integrity`
       };
 var managementMail = {
         from: 'appsdny@gmail.com',
-        to: "dnyindia@gmail.com",//'admin@t1integrity.com'
+        to: "admin@t1integrity.com",//'admin@t1integrity.com'
         subject: `${req.body.fullname}|| Approval Required ||`,
         text: `Dear Management,
 New registered user(s) need your approval. 
