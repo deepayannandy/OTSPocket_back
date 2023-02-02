@@ -40,6 +40,28 @@ router.post('/login',async (req,res)=>{
     const token= jwt.sign({_id:user._id,desig:user.desig},process.env.SECREAT_TOKEN);
     res.header('auth-token',token).send(token);
 })
+
+//login admin
+router.post('/dashboardlogin',async (req,res)=>{
+
+    //validate the data
+    const valid=validator.login_validation(req.body);
+    if(valid.error){
+        return res.status(400).send({"message":valid.error.details[0].message});
+    };
+    const user=await usermodel.findOne({email:req.body.email});
+    if(!user) return res.status(400).send({"message":"User dose not exist!"});
+    if(user.desig!="Admin") return res.status(400).send({"message":"Access Denied"});
+    // validate password
+    const validPass=await bcrypt.compare(req.body.password,user.password);
+    if(!validPass) return res.status(400).send({"message":"Emailid or password is invalid!"});
+    if (!user.active) return res.status(400).send({"message":"User is not an active user!"});
+
+    //create and assign token
+    const token= jwt.sign({_id:user._id,desig:user.desig},process.env.SECREAT_TOKEN);
+    res.header('auth-token',token).send(token);
+})
+
 //create user
 router.post('/register',async (req,res)=>{
     let ts = Date.now();
