@@ -13,7 +13,8 @@ router.post('/',verifie_token,async (req,res)=>{
         dispatchQnt:req.body.dispatchQnt,
         desc:req.body.desc,
         branchID:req.body.branchID,
-        UR:(req.body.branchID== null?0:req.body.UR)
+        UR:(req.body.branchID== null?0:req.body.UR),
+        PR:(req.body.branchID== null?0:req.body.UR)
     })
     try{
         const newConsumeables=await con.save()
@@ -31,7 +32,8 @@ router.post('/dashboard/',async (req,res)=>{
         dispatchQnt:req.body.dispatchQnt,
         desc:req.body.desc,
         branchID:req.body.branchID,
-        UR:(req.body.branchID== null?0:req.body.UR)
+        UR:(req.body.branchID== null?0:req.body.UR),
+        PR:(req.body.branchID== null?0:req.body.UR)
     })
     try{
         const newConsumeables=await con.save()
@@ -76,6 +78,9 @@ router.patch('/:id',verifie_token,getConsu,async(req,res)=>{
     if (req.body.UR!=null){
         res.consume.UR=req.body.UR;
     }
+    if (req.body.PR!=null){
+        res.consume.PR=req.body.PR;
+    }
     if(req.body.stockQnt!=null){
         res.consume.stockQnt=req.body.stockQnt;
     }
@@ -94,6 +99,9 @@ router.patch('/:id',verifie_token,getConsu,async(req,res)=>{
 router.patch('/dashboard/:id',getConsu,async(req,res)=>{
     if (req.body.UR!=null){
         res.consume.UR=req.body.UR;
+    }
+    if (req.body.PR!=null){
+        res.consume.PR=req.body.PR;
     }
     if(req.body.stockQnt!=null){
         res.consume.stockQnt=req.body.stockQnt;
