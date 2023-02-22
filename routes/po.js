@@ -18,13 +18,12 @@ router.post('/',verifie_token,async (req,res)=>{
         return res.status(404).json({message:"PO# already exist!"})
     }
 
-    const datenow=year + "-" + month + "-" + date+":"+date_ob.getHours()+":"+date_ob.getMinutes();
     const PO= new po({
         CustomerID:req.body.CustomerID,
         JD:req.body.JD,
         JT:req.body.JT,
         poNumber:req.body.poNumber,
-        timestamp:datenow,
+        timestamp:req.body.timestamp,
         wos:req.body.wos,
         contact:req.body.contact,
         address:req.body.address,
@@ -46,7 +45,7 @@ router.post('/',verifie_token,async (req,res)=>{
 
 //get a branch
 router.get('/:id', getPo,(req,res)=>{
-    res.send(res.PO)
+    res.status(201).send(res.PO)
 })
 
 
@@ -55,7 +54,7 @@ router.get('/:id', getPo,(req,res)=>{
 router.get('/',async (req,res)=>{
     try{
         const pos=await po.find()
-        res.json(pos)
+        res.status(201).json(pos)
     }catch(error){
         res.status(500).json({message: error.message})
     }
