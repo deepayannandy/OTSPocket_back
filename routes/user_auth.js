@@ -42,7 +42,7 @@ router.post('/login',async (req,res)=>{
 })
 
 //login admin
-router.post('/dashboardlogin',async (req,res)=>{
+router.post('/dashboardlogin/',async (req,res)=>{
 
     //validate the data
     const valid=validator.login_validation(req.body);

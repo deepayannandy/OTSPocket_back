@@ -1,6 +1,7 @@
 const express = require("express")
 const router= express.Router()
 const po=require("../models/poModel")
+const customer=require("../models/customerModel")
 
 
 //create branch
@@ -17,9 +18,14 @@ router.post('/',verifie_token,async (req,res)=>{
     if(finddata!=null){
         return res.status(404).json({message:"PO# already exist!"})
     }
+    const customerdata=await customer.findById(req.body.CustomerID)
+    if(customerdata==null){
+        return res.status(404).json({message:"Something went wrong"})
+    }
 
     const PO= new po({
         CustomerID:req.body.CustomerID,
+        CustomerID:customerdata.Customer,
         JD:req.body.JD,
         JT:req.body.JT,
         poNumber:req.body.poNumber,

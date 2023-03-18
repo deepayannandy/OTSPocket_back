@@ -9,6 +9,7 @@ const equip=require("../models/equipmentsModel")
 const verifie_token= require("../validators/verifyToken")
 
 router.post('/',getPo,verifie_token,async (req,res)=>{
+    console.log(req.body.workers)
     let ts = Date.now();
     let date_ob = new Date(ts);
     let date = date_ob.getDate();
@@ -33,6 +34,7 @@ router.post('/',getPo,verifie_token,async (req,res)=>{
         rentedEquipements:req.body.rentedEquipements,
         timecards:[],
         endDate:"",
+        csrid:req.body.csrid,
         
     })
     if(req.body.endDate!= null){
@@ -47,8 +49,9 @@ router.post('/',getPo,verifie_token,async (req,res)=>{
         res.PO.wos.push(wonumber)
         const newPo=await res.PO.save()
         for (worker in req.body.workers){
-            workerdata=await user.findById(req.body.workers[worker])
-            workersarr.push([req.body.workers[worker],workerdata.fullname])
+            console.log(req.body.workers[worker][0]);
+            workerdata=await user.findById(req.body.workers[worker][0])
+            workersarr.push(req.body.workers[worker])
             workerdata.projid=wonumber;
             const updateduser=await workerdata.save()
         }
@@ -75,6 +78,7 @@ router.post('/',getPo,verifie_token,async (req,res)=>{
 
 //get a branch
 router.get('/:id', getWo,(req,res)=>{
+
     res.send(res.WO)
 })
 

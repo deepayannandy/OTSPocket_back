@@ -21,6 +21,10 @@ const EquipmentSchema= new mongoos.Schema({
         type:Number,
         required:false
     },
+    PR:{
+        type:Number,
+        required:false
+    },
 })
 
 module.exports=mongoos.model('equipment',EquipmentSchema)

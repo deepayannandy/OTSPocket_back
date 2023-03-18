@@ -53,6 +53,10 @@ const WoSchema= new mongoos.Schema({
     managerId:{
         type:String,
         required:true
+    },
+    csrid:{
+        type:String,
+        required:true
     }
 })
 
