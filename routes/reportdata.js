@@ -32,7 +32,7 @@ router.get('/dts/:id',async (req,res)=>{
     for (let [key, value] of woCon) {
             cons.push([key,value]);
             }
-    res.json([{"woname":wo.woNumber,"poname":po.poNumber,"equipments":equip,"consumables":cons,"workers":wo.workers, "ContactPerson":po.contactperson,"clientname":po.clientname,"address":po.address,"jt":wo.JT,"date":new Date(),"Manager":wo.managerId}])
+    res.json([{"woname":wo.woNumber,"poname":po.poNumber,"equipments":equip,"consumables":cons,"workers":wo.workers, "ContactPerson":po.contactperson,"clientname":po.CustomerID,"address":po.address,"jt":wo.JT,"date":new Date(),"Manager":wo.managerId}])
 })
 
 
