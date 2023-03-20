@@ -57,6 +57,10 @@ const WoSchema= new mongoos.Schema({
     csrid:{
         type:String,
         required:true
+    },
+    approval:{
+        type:String,
+        required:false
     }
 })
 

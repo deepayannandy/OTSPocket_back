@@ -24,7 +24,7 @@ const CrSSchema= new mongoos.Schema({
     data:{
         type:Array,
         required:true
-    }
+    },
 })
 
 module.exports=mongoos.model('crs',CrSSchema)
