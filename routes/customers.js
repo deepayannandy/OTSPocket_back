@@ -59,7 +59,7 @@ router.patch('/:id',getCustomer,async (req,res)=>{
 
 //get all customer
 router.get('/',verifie_token,async (req,res)=>{
-    if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})
+    if (req.tokendata.desig=="Employee") return res.status(500).json({message:"Access Pohibited!"})
     try{
         const customerData=await customer.find()
         res.json(customerData)
