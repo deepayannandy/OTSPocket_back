@@ -28,7 +28,7 @@ router.post('/',verifie_token,async (req,res)=>{
 
 //get a customer
 router.get('/:id',verifie_token, getCustomer,(req,res)=>{
-    if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})
+    if (req.tokendata.desig=="Employee") return res.status(500).json({message:"Access Pohibited!"})
     res.send(res.customer)
 })
 //patch a customer
