@@ -17,11 +17,15 @@ const TimecardSchema= new mongoos.Schema({
         type:String,
         required:true
     },
-    status:{
+    starttime:{
         type:String,
         required:true
     },
-    branchID:{
+    endtime:{
+        type:String,
+        required:true
+    },
+    status:{
         type:String,
         required:true
     },
@@ -46,7 +50,7 @@ const TimecardSchema= new mongoos.Schema({
         required:true
     },
     ap_date:{
-        type:Date,
+        type:String,
         required:false
     },
 })

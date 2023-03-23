@@ -21,14 +21,15 @@ router.post("/",verifie_token,async(req,res)=>{
         submitdate :req.body.submitdate,
         empid :req.tokendata._id,
         status :"Submitted",
-        branchID : user.empBranch,
         empname:user.fullname,
         shift:req.body.shift,
         po :req.body.po,
         wo :req.body.wo,
         st :req.body.st,
         ot :req.body.ot,
-        tt :req.body.tt
+        tt :req.body.tt,
+        starttime: req.body.starttime,
+        endtime: req.body.endtime,
     })
     try{
         const newTimecard=await tc.save()

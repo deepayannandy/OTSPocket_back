@@ -6,7 +6,7 @@ const verifie_token= require("../validators/verifyToken")
 
 //create customer
 router.post('/',verifie_token,async (req,res)=>{
-    if (req.tokendata.desig!="Manager") return res.status(500).json({message:"Access Pohibited!"})
+    if (req.tokendata.desig=="Employee") return res.status(500).json({message:"Access Pohibited!"})
     const customerData= new customer({
         Customer:req.body.Customer,
         address:req.body.address,
