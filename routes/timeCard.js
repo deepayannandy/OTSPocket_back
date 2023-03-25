@@ -3,6 +3,7 @@ const router= express.Router()
 const timecard=require("../models/timecardModel")
 const usermodel=require("../models/userModel")
 const verifie_token= require("../validators/verifyToken")
+const woModel=require("../models/woModel")
 
 //get all branch
 router.get('/',verifie_token,async (req,res)=>{
@@ -15,15 +16,21 @@ router.get('/',verifie_token,async (req,res)=>{
 })
 
 router.post("/",verifie_token,async(req,res)=>{
-    const user=await usermodel.findOne({_id:req.tokendata._id});
-    console.log(user.fullname)
+    const wo=await woModel.findOne({'woNumber':req.body.wo});
+    const user=await usermodel.findOne({'_id':req.body.empid});
+    if(user== null) return res.status(400).json({message:"User not found"})
+    let po=req.body.wo;
+    if(wo!= null){
+        po=wo.poName;
+    }
+
     const tc= new timecard({
         submitdate :req.body.submitdate,
         empid :req.tokendata._id,
         status :"Submitted",
-        empname:user.fullname,
+        empname:req.body.empname,
         shift:req.body.shift,
-        po :req.body.po,
+        po : po,
         wo :req.body.wo,
         st :req.body.st,
         ot :req.body.ot,
@@ -32,6 +39,8 @@ router.post("/",verifie_token,async(req,res)=>{
         endtime: req.body.endtime,
     })
     try{
+        user.projid=""
+        const newuser=await user.save()
         const newTimecard=await tc.save()
         res.status(201).json(newTimecard.id)
     }
