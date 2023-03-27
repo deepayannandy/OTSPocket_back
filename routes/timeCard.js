@@ -55,7 +55,8 @@ router.post("/",verifie_token,async(req,res)=>{
         costcenter:req.body.costcenter,
         starttime: req.body.starttime,
         endtime: req.body.endtime,
-        task:task
+        task:task,
+        hh:req.body.hh
     })
     try{
         user.projid=""
