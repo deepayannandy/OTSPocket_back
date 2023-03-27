@@ -41,6 +41,10 @@ const TimecardSchema= new mongoos.Schema({
         type:Number,
         required:true
     },
+    hh:{
+        type:Number,
+        required:true
+    },
     ot:{
         type:Number,
         required:true

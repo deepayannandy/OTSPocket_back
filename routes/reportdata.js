@@ -60,10 +60,12 @@ router.get('/ets/:empid&:empname&:startdate&:enddate',async (req,res)=>{
     let cards=[]
     let totalpo=0
     let totalnobill=0
+    let totalhh=0
     for(let i=0;i<days.length;i++){
         let card = await  timeCard.findOne({ "empid": req.params.empid, "submitdate": { $regex: date.format(days[i], 'YYYY-MM-DD') } })
             if (card != null )
                {  
+                totalhh=totalhh+card.hh;
                 if(card.po!="Bench Time")
                 {let po= await poModel.findOne({"poNumber":card.po})
                 totalpo=totalpo+(card.st+card.ot)
@@ -75,7 +77,7 @@ router.get('/ets/:empid&:empname&:startdate&:enddate',async (req,res)=>{
             else
                 cards.push([date.format(days[i], 'YYYY-MM-DD'), "-","-","-","-","-","-","-"])
     }
-    res.json({"empname":req.params.empname,"start":req.params.startdate,"end":req.params.enddate,"cards":cards,"billable":totalpo.toString(),"nonbillable":totalnobill.toString()})
+    res.json({"empname":req.params.empname,"start":req.params.startdate,"end":req.params.enddate,"cards":cards,"billable":totalpo.toString(),"nonbillable":totalnobill.toString(),"hh":totalhh.toString()})
 })
 
 module.exports=router
