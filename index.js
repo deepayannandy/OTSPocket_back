@@ -42,6 +42,7 @@ const woRouter= require("./routes/wo.js")
 const lrRouter= require("./routes/laborRate")
 const csrRouter= require("./routes/customerrate")
 const reportRouter= require("./routes/reportdata")
+const pcRouter= require("./routes/paycycle")
 
 app.use("/api/user",userRouter)
 app.use("/api/branchoffice",branchOfficeRouter)
@@ -54,6 +55,7 @@ app.use("/api/wo",woRouter)
 app.use("/api/lr",lrRouter)
 app.use("/api/csr",csrRouter)
 app.use("/api/report",reportRouter)
+app.use("/api/paycycle",pcRouter)
 
 const sslServer=https.createServer(
     {

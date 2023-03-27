@@ -53,6 +53,14 @@ const TimecardSchema= new mongoos.Schema({
         type:String,
         required:false
     },
+    costcenter:{
+        type:String,
+        required:true
+    },
+    task:{
+        type:String,
+        required:true
+    }
 })
 
 module.exports=mongoos.model('timecard',TimecardSchema)
