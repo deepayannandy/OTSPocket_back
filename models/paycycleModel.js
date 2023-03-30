@@ -10,6 +10,10 @@ const PayCycleSchema= new mongoos.Schema({
         type:String,
         required:true
     },
+    weekno:{
+        type:Number,
+        required:true
+    },
     status:{
         type:Boolean,
         required:true
