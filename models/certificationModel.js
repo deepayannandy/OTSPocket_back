@@ -1,0 +1,41 @@
+const mongoos=require("mongoose")
+
+const CertificationSchema= new mongoos.Schema({
+    startdate:{
+        type:String,
+        required:true
+    },
+    enddate:{
+        type:String,
+        required:true
+    },
+    employeeid:{
+        type:String,
+        required:true
+    },
+    employeename:{
+        type:String,
+        required:true
+    },
+    CertificateName:{
+        type:String,
+        required:true
+    },
+    Certificateid:{
+        type:String,
+        required:true
+    },
+    Office:{
+        type:String,
+        required:true
+    },
+    Department:{
+        type:String,
+        required:true
+    },
+    Supervisor:{
+        type:String,
+        required:true
+    },
+})
+module.exports=mongoos.model('certification',CertificationSchema)

@@ -63,7 +63,7 @@ const TimecardSchema= new mongoos.Schema({
     },
     task:{
         type:String,
-        required:true
+        required:false
     }
 })
 

@@ -64,6 +64,10 @@ const userSchema= new mongoos.Schema({
     StatusBg:{
         type:String,
         required:false
+    },
+    hrs:{
+        type:Number,
+        required:false
     }
 })
 

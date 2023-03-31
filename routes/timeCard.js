@@ -97,6 +97,17 @@ router.patch('/update/:id',verifie_token,getCard,async(req,res)=>{
             wo.timecards.push(res.timecard)
             await wo.save()
         }
+        const user=await usermodel.findById(res.timecard.empid);
+        if(user!= null){
+            console.log(user.fullname)
+            if(user.hrs==undefined){
+                user.hrs=(res.timecard.st+res.timecard.ot);
+            }
+            else{
+                user.hrs=user.hrs+(res.timecard.st+res.timecard.ot);
+            }
+            await user.save()
+        }
     }
     
     try{
@@ -104,6 +115,7 @@ router.patch('/update/:id',verifie_token,getCard,async(req,res)=>{
         res.status(201).json({"_id":newtimeCard.id})
     }catch(error){
         res.status(500).json({message: error.message})
+        console.log(error.message)
     }
 })
 //get timecard by po
