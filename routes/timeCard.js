@@ -15,6 +15,15 @@ router.get('/:costcenter',verifie_token,async (req,res)=>{
         res.status(500).json({message: error.message})
     }
 })
+router.get('/',async (req,res)=>{
+    console.log(req.params.costcenter)
+    try{
+        const timecardList=await timecard.find()
+        res.json(timecardList)
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
 //get all of user
 router.get('/byuser/:id',verifie_token,async (req,res)=>{
     console.log(req.params.id)

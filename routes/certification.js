@@ -13,6 +13,15 @@ router.get('/:id',async (req,res)=>{
         res.status(400).json({message: error.message})
     }
 })
+//get all branch
+router.get('/',async (req,res)=>{
+    try{
+        const certificates=await certification.find()
+        res.json(certificates)
+    }catch(error){
+        res.status(400).json({message: error.message})
+    }
+})
 
 router.post("/",async(req,res)=>{
     const cf= new certification({
