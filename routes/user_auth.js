@@ -453,6 +453,75 @@ Team Tier1Integrity`
     }
 })
 
+router.patch('/forgotpassword/:email',async (req,res)=>{
+    let user=await usermodel.findOne({"email":req.params.email})
+    if(user==null){
+        return res.status(404).json({message:"User unavailable!"})
+    }
+    console.log(req.params.email)
+    //hash the password
+    const salt= await bcrypt.genSalt(10);
+    const hashedpassword= await bcrypt.hash(req.body.password,salt);
+    var regestereduserMail = {
+        from: 'appsdny@gmail.com',
+        to: req.params.email,
+        subject: 'Tier1Integrity - Password Changed Successfully',
+        text: `Hello ${user.fullname},
+Your Password has been changed successfully.
+
+* If you didnt change the password please contact Admin Support Team *
+      
+Thank you 
+Team Tier1Integrity`      
+      };
+    try{
+        transporter.sendMail(regestereduserMail, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+        user.password=hashedpassword
+        let newuser= await user.save();
+        res.status(200).json({message: "Success"})
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+
+
+})
+
+router.get('/forgotpassword/:email',async (req,res)=>{
+    console.log(req.params.email)
+    let otp=Math.floor(100000 + Math.random() * 900000)
+    console.log("OTP: "+otp);
+    var regestereduserMail = {
+        from: 'appsdny@gmail.com',
+        to: req.params.email,
+        subject: 'Tier1Integrity - OTP for Password Change',
+        text: `Use the below one time password to reset your password.
+${otp}
+
+* Confidential *
+      
+Thank you 
+Team Tier1Integrity`      
+      };
+      try{
+        transporter.sendMail(regestereduserMail, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+        res.json(otp)
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
 //middleware
 async function getUser(req,res,next){
     let user
