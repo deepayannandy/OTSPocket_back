@@ -44,6 +44,7 @@ const csrRouter= require("./routes/customerrate")
 const reportRouter= require("./routes/reportdata")
 const pcRouter= require("./routes/paycycle")
 const CertificationRouter= require("./routes/certification")
+const ExpanceRouter= require("./routes/expance")
 
 app.use("/api/user",userRouter)
 app.use("/api/branchoffice",branchOfficeRouter)
@@ -58,6 +59,7 @@ app.use("/api/csr",csrRouter)
 app.use("/api/report",reportRouter)
 app.use("/api/paycycle",pcRouter)
 app.use("/api/certification",CertificationRouter)
+app.use("/api/expance",ExpanceRouter)
 
 const sslServer=https.createServer(
     {

@@ -2,7 +2,7 @@ const mongoos=require("mongoose")
 
 const TimecardSchema= new mongoos.Schema({
     submitdate:{
-        type:String,
+        type:Date,
         required:true
     },
     empid:{

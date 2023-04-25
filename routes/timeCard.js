@@ -4,6 +4,7 @@ const timecard=require("../models/timecardModel")
 const usermodel=require("../models/userModel")
 const verifie_token= require("../validators/verifyToken")
 const woModel=require("../models/woModel")
+const { route } = require("./user_auth")
 
 //get all branch
 router.get('/:costcenter',verifie_token,async (req,res)=>{
@@ -146,6 +147,41 @@ router.get('/filter/:po',verifie_token,async (req,res)=>{
     }
 })
 
+router.get('/hrtimecard/:startdate&:enddate',async(req,res)=>{
+    console.log(new Date(req.params.startdate),new Date(req.params.enddate))
+    const usersdata = new Map();
+    let fetchedtimecards=await  timecard.find({ 
+        submitdate: { $gte: new Date(req.params.startdate), 
+          $lte:new Date(req.params.enddate) 
+        } 
+        })
+    
+    if (fetchedtimecards.length>0){
+        fetchedtimecards.forEach((card)=>{
+            let id=card.empid
+            if (!usersdata.has(id)){
+                usersdata.set(id,{employee:card.empname,st:card.st,ot:card.ot,hh:card.hh,costcenter:card.costcenter})
+            }
+            else{
+                let availabledata= usersdata.get(id)
+                usersdata.set(id,{employee:card.empname,st:(card.st+availabledata.st),ot:(card.ot+availabledata.ot),hh:(card.hh+availabledata.hh),costcenter:card.costcenter})
+            }
+        })
+        console.log(usersdata)
+    }
+    let finaldata=[]
+    usersdata.forEach((k,v)=>{
+        k.empid=v
+        console.log(k)
+        finaldata.push(k)
+    })
+    console.log(finaldata)
+    try{
+        res.json(finaldata)
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
 //middleware
 async function getCard(req,res,next){
     let tc
